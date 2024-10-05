@@ -13,11 +13,9 @@ try {
         $title = $_POST['title'];
         $id = $_POST['id'];
         
-        // Sanitize only the title
         $sanitizedTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 
         if ($id) {
-            // Update existing document
             $stmt = $pdo->prepare("UPDATE documents SET title = :title, content = :content WHERE id = :id");
             $stmt->execute([
                 'title' => $sanitizedTitle,
@@ -26,13 +24,12 @@ try {
             ]);
             echo "Documento atualizado com sucesso!";
         } else {
-            // Insert new document
             $stmt = $pdo->prepare("INSERT INTO documents (title, content) VALUES (:title, :content)");
             $stmt->execute([
                 'title' => $sanitizedTitle,
                 'content' => $content
             ]);
-            echo $pdo->lastInsertId(); // Return the new document ID
+            echo $pdo->lastInsertId();
         }
     } else {
         echo "Requisição inválida.";
