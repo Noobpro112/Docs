@@ -1,6 +1,7 @@
 <?php global $conexao; ?> <!DOCTYPE html>
 <html lang="pt-BR">
 <?php
+session_start();
 include_once('include/conexao.php');
 $sql = "SELECT * FROM tb_documento";
 $resultado = mysqli_query($conexao, $sql);
