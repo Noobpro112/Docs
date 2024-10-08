@@ -24,10 +24,10 @@
                 }
             ?>
             Email
-            <input type="gmail" name="email"> <!-- Input do Email -->
+            <input type="email" name="email"> <!-- Input do Email -->
             Senha
             <input type="password" name="senha"> <!-- Input da Senha -->
-            <input type="submit"> <!-- Input para enviar informações -->
+            <input type="submit" value="Logar"> <!-- Input para enviar informações -->
         </form>
     </main>
 </body>

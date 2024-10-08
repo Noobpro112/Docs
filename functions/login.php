@@ -1,7 +1,6 @@
 <?php global $conexao; 
     include_once('../include/conexao.php'); //Trazer o script desse caminho, dessa forma especificando a variável conexão
 
-
     //Iniciar sessão para guardar informações do usuário
     session_start();    
 
@@ -51,5 +50,3 @@
         header('Location: index.php?status=fail', 301, true);
         exit();
     }
-?>
-
