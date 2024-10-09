@@ -1,0 +1,30 @@
+/* CSS global para tirar as margens padrão */
+*{ 
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+/* Main com o tamanho da tela inteira */
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* Box para cadastrar novo colaborador */
+main .InsertBox {
+    border: 1px solid black;
+    width: 10%;
+    height: 22%;
+    padding: 10px;
+}
+
+/* Box para pesquisar novo colaborador */
+main .BarraPesquisa{
+    display: flex;
+    justify-content: space-evenly;
+    width: 12%;
+}

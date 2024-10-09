@@ -1,4 +1,5 @@
-<?php global $conexao; ?> <!DOCTYPE html>
+<?php global $conexao; ?> 
+<!DOCTYPE html>
 <html lang="pt-BR">
 <?php
 session_start();
@@ -20,5 +21,7 @@ while ($registro = mysqli_fetch_assoc($resultado)) {
 }
 ?>
 <a href="Editor.php">Novo Documento.</a>
+<br>
+<a href="cadastrar_colaborador.php">Cadastrar colaborador</a>
 </body>
 </html>
