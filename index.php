@@ -28,9 +28,13 @@
                 }
             ?>
             Email
-            <input type="email" name="email"> <!-- Input do Email -->
+            <label>
+                <input type="email" name="email">
+            </label> <!-- Input do Email -->
             Senha
-            <input type="password" name="senha"> <!-- Input da Senha -->
+            <label>
+                <input type="password" name="senha">
+            </label> <!-- Input da Senha -->
             <input type="submit" value="Logar"> <!-- Input para enviar informações -->
         </form>
     </main>
