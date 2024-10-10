@@ -3,13 +3,13 @@
 <html lang="pt-BR">
 <?php
 session_start();
-include_once('../include/conexao.php');
+include_once('../../include/conexao.php');
 $sql = "SELECT * FROM tb_documento";
 $resultado = mysqli_query($conexao, $sql);
 ?>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>HOME ADM</title>
 </head>
 <body>
 <h1>Selecione um Arquivo:</h1>

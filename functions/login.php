@@ -23,9 +23,15 @@
             $_SESSION['usuario_email'] = $rowUsuario['usuario_email'];
             $_SESSION['usuario_senha'] = $rowUsuario['usuario_senha'];
             $_SESSION['usuario_tipo'] = $rowUsuario['usuario_tipo'];
-            
-            header('Location: ../pgs/home.php', true, 301); //Redirecionar para a home, pois o login foi efetuado com sucesso
-            exit();
+
+            //Redirecionar usuário dependendo do tipo de login
+            if($_SESSION['usuario_tipo'] == 'ADM'){
+                header('Location: ../pgs/admin/home.php', true, 301); //Redirecionar para a home do admin
+                exit();
+            }else{
+                header('Location: ../pgs/colaborador/home.php', true, 301); //Redirecionar para a home do colaborador
+                exit();
+            }
 
         }else{ //Não encontrou o usuario com tais dados, então vamos descobrir o que o usuário digitou errado ou se ele está inativo
             $SelectEmail = "SELECT * FROM tb_usuario WHERE usuario_email = '$email'"; //Buscar pelo email digitado pelo usuário, verificando assim se o email existe ou não
