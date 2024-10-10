@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 05/10/2024 às 16:29
+-- Host: 127.0.0.1:3306
+-- Tempo de geração: 10/10/2024 às 02:16
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -50,10 +50,17 @@ CREATE TABLE `tb_usuario` (
   `usuario_nome` varchar(255) NOT NULL,
   `usuario_email` varchar(255) NOT NULL,
   `usuario_senha` varchar(255) NOT NULL,
-  `usuario_tipo` varchar(255) NOT NULL,
+  `usuario_tipo` enum('ADM','COLLAB') NOT NULL,
   `usuario_data_entrada` datetime NOT NULL,
   `usuario_ativo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Despejando dados para a tabela `tb_usuario`
+--
+
+INSERT INTO `tb_usuario` (`id_usuario`, `usuario_nome`, `usuario_email`, `usuario_senha`, `usuario_tipo`, `usuario_data_entrada`, `usuario_ativo`) VALUES
+(1, 'Kauan', 'kauan@gmail.com', 'kauan_007', 'ADM', '2024-10-08 17:30:00', 1);
 
 -- --------------------------------------------------------
 
@@ -106,7 +113,7 @@ ALTER TABLE `tb_documento`
 -- AUTO_INCREMENT de tabela `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `usuario_documento`
