@@ -45,8 +45,8 @@
                 </div>
                 <div class="boxLogin-input inputSenha">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" name="senha" placeholder="Senha">
-                    <i class="fa-solid fa-eye-slash"></i>
+                    <input type="password" name="senha" placeholder="Senha" id="senha">
+                    <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
                     <!-- Input da Senha -->
                 </div>
                 <div class="boxLogin-button">
@@ -55,6 +55,20 @@
             </form>
         </div>
     </section>
+    <script>
+        const senhaInput = document.getElementById("senha");
+        const togglePassword = document.getElementById("togglePassword");
+
+        togglePassword.addEventListener("click", function () {
+            // Alternar o tipo de input entre "password" e "text"
+            const isPassword = senhaInput.type === "password";
+            senhaInput.type = isPassword ? "text" : "password";
+
+            // Alternar o ícone entre "fa-eye" e "fa-eye-slash"
+            togglePassword.classList.toggle("fa-eye");
+            togglePassword.classList.toggle("fa-eye-slash");
+        });
+    </script>
 </body>
 
 </html>

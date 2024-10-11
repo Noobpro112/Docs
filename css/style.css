@@ -1,4 +1,5 @@
-*, html {
+*,
+html {
     margin: 0px;
     padding: 0px;
 }
@@ -19,14 +20,18 @@
 .boxLogin {
     width: auto;
     height: auto;
-    border: 2px solid #000;
     padding: 30px;
 }
 
 h2 {
-    font-family: "Montserrat", sans-serif;
+    font-family: var(--primary-font);
     font-size: 30px;
     margin-bottom: 15px;
+}
+
+.boxLogin-Title h2 {
+    margin-left: 15px;
+    margin-bottom: 10px;
 }
 
 .boxLogin-input {
@@ -34,7 +39,8 @@ h2 {
     height: auto;
     display: flex;
     justify-content: start;
-    margin: 20px 10px;
+    margin: 20px 0px;
+    align-items: center;
 }
 
 .boxLogin-button {
@@ -44,12 +50,85 @@ h2 {
 }
 
 .boxLogin-button input {
-    padding: 10px 20px;
+    padding: 9px 40px;
     background-color: var(--primary-color);
     color: #fff;
-    font: var(--primary-font);
+    font-family: var(--primary-font);
     font-weight: bold;
-    font-size: 25px;
+    font-size: 17px;
     border: none;
     border-radius: 30px;
+    margin-top: 10px;
+}
+
+.boxLogin-button input:hover {
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+  }
+
+
+.boxLogin-input input {
+    font-family: var(--primary-font);
+    width: 250px;
+    padding: 0px 10px;
+    height: 35px;
+    border: none;
+    font-size: 14px;
+    background-color: #ededed;
+}
+
+.inputEmail input {
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+}
+
+.inputEmail .fa-user {
+    background-color: #ededed;
+    border-top-left-radius: 17px;
+    border-bottom-left-radius: 17px;
+    font-size: 18px;
+    padding: 0px 10px 0px 17px;
+    height: 35px;
+    color: #121820;
+    display: flex;
+    align-items: center;
+}
+
+.inputSenha {
+    max-width: 315.75px;
+}
+
+.inputSenha input {
+    width: -webkit-fill-available !important;
+}
+
+.inputSenha i {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    background-color: #ededed;
+}
+
+
+.inputSenha .fa-lock {
+    border-top-left-radius: 17px;
+    border-bottom-left-radius: 17px;
+    font-size: 18px;
+    padding: 0px 10px 0px 17px;
+    color: #121820;
+}
+
+.inputSenha .fa-eye-slash {
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    font-size: 18px;
+    padding: 0px 10px 0px 17px;
+    color: #121820;
+}
+
+.inputSenha .fa-eye {
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    font-size: 18px;
+    padding: 0px 10px 0px 17px;
+    color: #121820;
 }
