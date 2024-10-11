@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar</title>
-    <link rel="stylesheet" href="../../-css/cadastrar_colaborador.css"> <!--Link para CSS externo, os estilos estarão lá-->
+    <link rel="stylesheet" href="../../css/cadastrar_colaborador.css"> <!--Link para CSS externo, os estilos estarão lá-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"><!--Link para usar os icones da bootstrap-->
 
 </head>
