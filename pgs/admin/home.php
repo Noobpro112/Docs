@@ -1,10 +1,10 @@
-<?php global $conexao; ?> 
+<?php global $conexao; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <?php
 session_start();
 include_once('../../include/conexao.php');
-$sql = "SELECT * FROM tb_documento";
+$sql = "SELECT * FROM documentos";
 $resultado = mysqli_query($conexao, $sql);
 ?>
 <head>
@@ -15,9 +15,9 @@ $resultado = mysqli_query($conexao, $sql);
 <h1>Selecione um Arquivo:</h1>
 <?php
 while ($registro = mysqli_fetch_assoc($resultado)) {
-    $titulo = $registro['documento_titulo'];
-    $id = $registro['id_documento'];
-    echo '<a href="editor.php?id=' . $id . '">' . $titulo . ' ' . $id . '</a><br>';
+    $titulo = $registro['titulo'];
+    $id = $registro['id'];
+    echo '<a href="editor.php?id=' . $id . '">' . $titulo . ' ' . $id . '</a><br>'; // AQUI ELE TA MOSTRANDO OS ARQUIVOS. então você pode colocar como um botão ou da forma que preferir.
 }
 ?>
 <form method="post" action=../../functions/criar_documento.php>

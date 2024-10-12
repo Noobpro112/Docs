@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 12/10/2024 às 08:44
+-- Tempo de geração: 12/10/2024 às 10:17
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.2.18
 
@@ -46,23 +46,7 @@ CREATE TABLE IF NOT EXISTS `documentos` (
 --
 
 INSERT INTO `documentos` (`id`, `titulo`, `conteudo`, `data_criacao`, `data_modificacao`, `ID_Usuario`, `tamanho_fonte`) VALUES
-    (1, 'Documento Sem Titulo', '<b><i>\n        \n        \n        teste é foda</i></b>', '2024-10-12 05:17:11', '2024-10-12 05:32:14', 1, 14);
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `tb_documento`
---
-
-DROP TABLE IF EXISTS `tb_documento`;
-CREATE TABLE IF NOT EXISTS `tb_documento` (
-                                              `id_documento` int NOT NULL AUTO_INCREMENT,
-                                              `documento_titulo` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-                                              `documento_conteudo` text COLLATE utf8mb3_unicode_ci,
-                                              `documento_data_criacao` datetime NOT NULL,
-                                              `documento_data_atualizacao` datetime DEFAULT NULL,
-                                              PRIMARY KEY (`id_documento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+    (1, 'ronaldinho', '\n        <i style=\"\"><b>TESTE</b><br><br><br><b style=\"\">JanuARIO <strike>MEU</strike> AMIG</b><u>O</u></i>    ', '2024-10-12 05:17:11', '2024-10-12 07:15:55', 1, 14);
 
 -- --------------------------------------------------------
 

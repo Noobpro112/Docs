@@ -87,6 +87,7 @@ while ($row = mysqli_fetch_assoc($resultado)) {
         <button onclick="insertList('insertUnorderedList')">Lista com Marcadores</button>
         <button onclick="insertList('insertOrderedList')">Lista Numerada</button>
         <input type="text" id="Titulo" name="Titulo" value="<?php echo $titulo ?>" placeholder="Titulo">
+        <a href="home.php"><button>Voltar</button></a>
         <input type="hidden" id="id" name="id" value="<?php echo $id; ?>"> <!-- não mexe nessa porra não, vou deixar aqui quietinho e deixa ele ae escondidinho. no maximo troca ele de lugar no html mas ele tem que estar no código-->
     </div> <!-- Fim Botões -->
 
