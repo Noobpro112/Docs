@@ -20,7 +20,9 @@ while ($registro = mysqli_fetch_assoc($resultado)) {
     echo '<a href="editor.php?id=' . $id . '">' . $titulo . ' ' . $id . '</a><br>';
 }
 ?>
-<a href="Editor.php">Novo Documento.</a>
+<form method="post" action=../../functions/criar_documento.php>
+<button type="submit">Novo Documento.</button>
+</form>
 <br>
 <a href="cadastrar_colaborador.php">Cadastrar colaborador</a>
 </body>

@@ -1,3 +1,15 @@
+<?php
+global $conexao;
+include_once('../../include/conexao.php');
+$id = $_GET['id'];
+$sql = "SELECT * FROM documentos where id =" . $id;
+$resultado = mysqli_query($conexao, $sql);
+while ($row = mysqli_fetch_assoc($resultado)) {
+    $conteudo = $row['conteudo'];
+    $titulo = $row['titulo'];
+    $tamanho_fonte = $row['tamanho_fonte'];
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -51,7 +63,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container"> <!-- Botões -->
     <div class="toolbar">
         <button onclick="adjustFontSize(-1)">Diminuir Fonte</button>
         <span id="font-size-display">14px</span>
@@ -74,13 +86,21 @@
         <button onclick="alignText('justify')">Justificar</button>
         <button onclick="insertList('insertUnorderedList')">Lista com Marcadores</button>
         <button onclick="insertList('insertOrderedList')">Lista Numerada</button>
-    </div>
+        <input type="text" id="Titulo" name="Titulo" value="<?php echo $titulo ?>" placeholder="Titulo">
+        <input type="hidden" id="id" name="id" value="<?php echo $id; ?>"> <!-- não mexe nessa porra não, vou deixar aqui quietinho e deixa ele ae escondidinho. no maximo troca ele de lugar no html mas ele tem que estar no código-->
+    </div> <!-- Fim Botões -->
 
-    <div id="editor" contenteditable="true">
-        Comece a digitar aqui...
-    </div>
+    <div id="editor" contenteditable="true" style="font-size: <?php echo $tamanho_fonte; ?>px;">
+        <?php echo $conteudo ?>
+    </div> <!-- Aonde o usuario digita -->
 </div>
 
-<script src="../js/editor.js"></script>
+<script src="../../js/editor.js"></script>
+<script src="../../js/ajax.js"></script>
+<script>
+    document.getElementById("Titulo").addEventListener("input", Salva_Conteudo);
+    document.getElementById("editor").addEventListener("input", Salva_Conteudo);
+
+</script>
 </body>
 </html>
