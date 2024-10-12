@@ -12,7 +12,7 @@
 <body>
     <main>
         <!--Forms para a box onde o admin vai colocar as informações para cadastro-->
-        <form class="InsertBox">
+        <form action="../../functions/cadastrar_colaborador.php" class="InsertBox" method="POST">
             <h5>Nome</h5> <!--H5 para o nome-->
             <input type="text" name="nome"> <!--Input para inserir nome-->
             <br>
@@ -23,6 +23,13 @@
             <br>
             <h5>Senha</h5> <!--H5 para a senha-->
             <input type="password" name="senha"> <!--Input para inserir senha-->
+            <br>
+            <br>
+            <h5>Tipo do usuário</h5> <!--H5 para a senha-->
+            <select name="tipo_usuario" id="tipo_usuario"> <!--Select para escolher o tipo de usuário que queira cadastrar-->
+                <option value="adm">Administrador</option> <!--Opção 1 - Administrador-->
+                <option value="collab">Colaborador</option> <!--Opção 2 - Colaborador-->
+            </select>
             <br>
             <br>
             <input type="submit" name="Enviar" value="Cadastrar"> <!--Input para enviar as informações para o banco de dados-->
