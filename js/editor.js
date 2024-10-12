@@ -34,7 +34,6 @@ editor.addEventListener('keyup', updateToolbar);
 editor.addEventListener('mouseup', updateToolbar);
 
 function updateToolbar() {
-    // Atualizar a exibição do tamanho da fonte se necessário
     const selection = window.getSelection();
     if (selection.rangeCount > 0) {
         const range = selection.getRangeAt(0);
@@ -44,5 +43,6 @@ function updateToolbar() {
     }
 }
 
-// Inicializar a barra de ferramentas
 updateToolbar();
+
+// isso aqui é o puro suco do chatgpt, não me culpem mó bagulho do caralho isso aqui
