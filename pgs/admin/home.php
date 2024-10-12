@@ -4,7 +4,7 @@
 <?php
 session_start();
 include_once('../../include/conexao.php');
-$sql = "SELECT * FROM documentos";
+$sql = "SELECT * FROM tb_documento";
 $resultado = mysqli_query($conexao, $sql);
 ?>
 <head>
