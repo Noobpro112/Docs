@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Prepare a atualização
     $stmt = $conn->prepare("UPDATE documentos SET titulo = ?, conteudo = ?, tamanho_fonte = ? WHERE id = ?");
-    $stmt->bind_param("ssii", $titulo, $conteudo, $tamanho_fonte, $id); // Bind para o novo campo
+    $stmt->bind_param("ssii", $titulo, $conteudo, $tamanho_fonte, $id);
 
     if ($stmt->execute()) {
         echo "Conteúdo atualizado com sucesso.";
