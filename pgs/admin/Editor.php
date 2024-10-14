@@ -16,6 +16,15 @@ while ($row = mysqli_fetch_assoc($resultado)) {
     <meta charset="UTF-8">
     <title>Editor de Texto Rico</title>
     <style>
+        .toolbar button {
+            user-select: none;
+        }
+        img {
+            transition: all 0.3s ease;
+        }
+        img:hover {
+            box-shadow: 0 0 0 2px #007bff;
+        }
         body, html {
             margin: 0;
             padding: 0;
@@ -64,14 +73,14 @@ while ($row = mysqli_fetch_assoc($resultado)) {
 </head>
 <body>
 <div class="container"> <!-- Botões -->
-    <div class="toolbar">
-        <button onclick="adjustFontSize(-1)">Diminuir Fonte</button>
+    <div class="toolbar" contenteditable="false">
+        <button type="button" onclick="adjustFontSize(-1)">Diminuir Fonte</button>
         <span id="font-size-display">14px</span>
-        <button onclick="adjustFontSize(1)">Aumentar Fonte</button>
-        <button onclick="formatText('bold')">Negrito</button>
-        <button onclick="formatText('italic')">Itálico</button>
-        <button onclick="formatText('underline')">Sublinhado</button>
-        <button onclick="formatText('strikeThrough')">Tachado</button>
+        <button type="button" onclick="adjustFontSize(1)">Aumentar Fonte</button>
+        <button type="button" onclick="formatText('bold')">Negrito</button>
+        <button type="button" onclick="formatText('italic')">Itálico</button>
+        <button type="button" onclick="formatText('underline')">Sublinhado</button>
+        <button type="button" onclick="formatText('strikeThrough')">Tachado</button>
         <div class="color-picker-wrapper">
             <input type="color" id="text-color-picker" onchange="setColor(this.value)">
             <label for="text-color-picker">Cor do Texto</label>
@@ -80,14 +89,16 @@ while ($row = mysqli_fetch_assoc($resultado)) {
             <input type="color" id="highlight-color-picker" value="#ffffff" onchange="setHighlightColor(this.value)">
             <label for="highlight-color-picker">Grifar</label>
         </div>
-        <button onclick="alignText('left')">Alinhar Esquerda</button>
-        <button onclick="alignText('center')">Centralizar</button>
-        <button onclick="alignText('right')">Alinhar Direita</button>
-        <button onclick="alignText('justify')">Justificar</button>
-        <button onclick="insertList('insertUnorderedList')">Lista com Marcadores</button>
-        <button onclick="insertList('insertOrderedList')">Lista Numerada</button>
+        <button type="button" onclick="alignText('left')">Alinhar Esquerda</button>
+        <button type="button" onclick="alignText('center')">Centralizar</button>
+        <button type="button" onclick="alignText('right')">Alinhar Direita</button>
+        <button type="button" onclick="alignText('justify')">Justificar</button>
+        <button type="button" onclick="insertList('insertUnorderedList')">Lista com Marcadores</button>
+        <button type="button" onclick="insertList('insertOrderedList')">Lista Numerada</button>
         <input type="text" id="Titulo" name="Titulo" value="<?php echo $titulo ?>" placeholder="Titulo">
-        <a href="home.php"><button>Voltar</button></a>
+        <a href="home.php"><button type="button">Voltar</button></a>
+        <button type="button" onclick="triggerImageUpload()">Inserir Imagem</button>
+        <input type="file" id="imageUpload" style="display: none;" accept="image/*">
         <input type="hidden" id="id" name="id" value="<?php echo $id; ?>"> <!-- não mexe nessa porra não, vou deixar aqui quietinho e deixa ele ae escondidinho. no maximo troca ele de lugar no html mas ele tem que estar no código-->
     </div> <!-- Fim Botões -->
 
@@ -101,7 +112,7 @@ while ($row = mysqli_fetch_assoc($resultado)) {
 <script>
     document.getElementById("Titulo").addEventListener("input", Salva_Conteudo);
     document.getElementById("editor").addEventListener("input", Salva_Conteudo);
-
+    setInterval(Salva_Conteudo, 2000);
 </script>
 </body>
 </html>

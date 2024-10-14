@@ -1,8 +1,8 @@
 function Salva_Conteudo() {
-    var conteudo_pagina = document.getElementById("editor").innerHTML;
     var titulo = document.getElementById("Titulo").value;
     var id = document.getElementById("id").value;
     var tamanho_fonte = currentFontSize;
+    var conteudo_pagina = document.getElementById("editor").innerHTML;
 
     var requisicao = new XMLHttpRequest();
     requisicao.open("POST", "../../functions/salvar.php", true);

@@ -11,6 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Prepare a atualização
     $stmt = $conn->prepare("UPDATE documentos SET titulo = ?, conteudo = ?, tamanho_fonte = ? WHERE id = ?");
     $stmt->bind_param("ssii", $titulo, $conteudo, $tamanho_fonte, $id);
+    if (isset($_FILES['image'])) {
+        $uploadDir = 'uploads/';
+        $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+            echo json_encode(['success' => true, 'url' => $uploadFile]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
+        exit;
+    }
 
     if ($stmt->execute()) {
         echo "Conteúdo atualizado com sucesso.";
