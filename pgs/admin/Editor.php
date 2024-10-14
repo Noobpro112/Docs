@@ -92,7 +92,7 @@ while ($row = mysqli_fetch_assoc($resultado)) {
         <button type="button" onclick="alignText('left')">Alinhar Esquerda</button>
         <button type="button" onclick="alignText('center')">Centralizar</button>
         <button type="button" onclick="alignText('right')">Alinhar Direita</button>
-        <button type="button" onclick="alignText('justify')">Justificar</button>
+        <!-- <button type="button" onclick="alignText('justify')">Justificar</button>  Achei esse botão meio inutil então vou tirar-->
         <button type="button" onclick="insertList('insertUnorderedList')">Lista com Marcadores</button>
         <button type="button" onclick="insertList('insertOrderedList')">Lista Numerada</button>
         <input type="text" id="Titulo" name="Titulo" value="<?php echo $titulo ?>" placeholder="Titulo">
