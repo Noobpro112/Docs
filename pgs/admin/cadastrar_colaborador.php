@@ -18,7 +18,7 @@
             <?php
                 if(isset($_GET['status']) && ($_GET['status'] == 'failEmail')){
                     echo '<h4> Email indisponível </h4>'; //H4 para email já utilizado
-                }elseif(isset($_GET['status']) && ($_GET['status'] == 'failInsert')){
+                }elseif(isset($_GET['status']) && ($_GET['status'] == 'failExSTP')){
                     echo '<h4> Erro ao Cadastrar </h4>'; //H4 para erro na hora do cadastro
                 }elseif(isset($_GET['status']) && ($_GET['status'] == 'fail')){
                     echo '<h4> Dados não fornecidos </h4>'; //H4 para dados não fornecidos pelo usuário
@@ -41,8 +41,8 @@
             <br>
             <h5>Tipo do usuário</h5> <!--H5 para a senha-->
             <select name="tipo_usuario" id="tipo_usuario"> <!--Select para escolher o tipo de usuário que queira cadastrar-->
-                <option value="adm">Administrador</option> <!--Opção 1 - Administrador-->
-                <option value="collab">Colaborador</option> <!--Opção 2 - Colaborador-->
+                <option value="ADM">Administrador</option> <!--Opção 1 - Administrador-->
+                <option value="COLLAB">Colaborador</option> <!--Opção 2 - Colaborador-->
             </select>
             <br>
             <br>
