@@ -13,6 +13,20 @@
     <main>
         <!--Forms para a box onde o admin vai colocar as informações para cadastro-->
         <form action="../../functions/cadastrar_colaborador.php" class="InsertBox" method="POST">
+
+            <!--Bloco PHP para verficar as repostas de erro do servidor-->
+            <?php
+                if(isset($_GET['status']) && ($_GET['status'] == 'failEmail')){
+                    echo '<h4> Email indisponível </h4>'; //H4 para email já utilizado
+                }elseif(isset($_GET['status']) && ($_GET['status'] == 'failInsert')){
+                    echo '<h4> Erro ao Cadastrar </h4>'; //H4 para erro na hora do cadastro
+                }elseif(isset($_GET['status']) && ($_GET['status'] == 'fail')){
+                    echo '<h4> Dados não fornecidos </h4>'; //H4 para dados não fornecidos pelo usuário
+                }else{
+
+                }
+            ?>
+
             <h5>Nome</h5> <!--H5 para o nome-->
             <input type="text" name="nome"> <!--Input para inserir nome-->
             <br>
@@ -35,7 +49,7 @@
             <input type="submit" name="Enviar" value="Cadastrar"> <!--Input para enviar as informações para o banco de dados-->
         </form>
 
-        <!--form para buscar pelo nome dos colaboradores-->
+        <!--div para buscar pelo nome dos colaboradores-->
         <div class="BarraPesquisa">
             <!-- Local onde ficará a imagem da lupa para pequisa por usuário (figure) -->
             <figure class="LupaPesquisa">
