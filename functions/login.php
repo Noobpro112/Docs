@@ -78,3 +78,6 @@
         header('Location: ../index.php?status=fail', true, 301); //Dados não foram enviados corretamente
         exit();
     }
+
+    //Fechar conexão com a databse
+    $conexao->close();

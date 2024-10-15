@@ -62,16 +62,41 @@
 
         <!--div onde ficarão ficarão listados os nomes dos colaboradores que já estão cadastrados-->
         <div class="CadastrosBox">
-            <!-- Local onde ficará a forto de perfil do usuário (figure) -->
-            <figure class="FotoPerfil">
-            </figure> 
+            
+            <?php
+            include_once('../../include/conexao.php');
 
-            <h4></h4> <!-- H4 onde ficarão os nomes dos colaboradores-->
+            $SelectUsuarios = "SELECT * FROM usuario_ativos";
+            $executeSelectUsuario = $conexao -> query($SelectUsuarios);
 
-            <!-- Local onde ficará a setinha apontada para baixo, onde o admin pode ver outras informações do colaborador (figure) -->
-            <figure class="SetinhaBaixo">
-            </figure>
-        </div>
+            if($executeSelectUsuario && $executeSelectUsuario -> num_rows > 0){
+                while($row = $executeSelectUsuario -> fetch_assoc()){
+                    ?>
+                            <div class="Conteudo">
+                                <!-- Local onde ficará a forto de perfil do usuário (figure) -->
+                                <figure class="FotoPerfil">
+                                    <!--Codigo do bootstrap da foto perfil, so para padrão, depois irei adicionar a foto real que a pessoa inseriu-->
+                                    <i class="bi bi-person-circle"></i>
+                                </figure>
+                                <div class="InfoPrincipal">
+                                    <h4> <?php echo $row['usuario_nome'] ?></h4> <!-- H4 onde ficarão os nomes dos colaboradores-->
+                                    <!-- Local onde ficará a setinha apontada para baixo, onde o admin pode ver outras informações do colaborador (figure) -->
+                                    <h4> <?php echo $row['usuario_tipo'] ?> </h4>
+                                </div>
+                                <figure class="SetinhaBaixo">
+                                    <!--Codigo do bootstrap da seta para baixo-->
+                                    <i class="bi bi-arrow-down-short"></i>
+                                </figure>
+                            </div>
+                            <hr>
+                    <?php
+                }
+            } else{
+                echo '<h4> Nenhum Usuário ativo</h4>'; //H4 para caso nenhum usuário esteja ativo
+            }
+            
+            ?>
+            </div>
     </main>
 </body>
 </html>

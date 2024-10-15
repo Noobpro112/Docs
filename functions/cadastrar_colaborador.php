@@ -48,4 +48,5 @@ if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['senha']) && 
     exit();
 }
 
-
+//Fechar conexão com a databse
+$conexao->close();
