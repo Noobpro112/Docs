@@ -16,6 +16,17 @@ while ($row = mysqli_fetch_assoc($resultado)) {
     <meta charset="UTF-8">
     <title>Editor de Texto Rico</title>
     <style>
+        .resize-handle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: blue;
+            border: 1px solid white;
+        }
+        .nw-resize { cursor: nw-resize; }
+        .ne-resize { cursor: ne-resize; }
+        .sw-resize { cursor: sw-resize; }
+        .se-resize { cursor: se-resize; }
         .toolbar button {
             user-select: none;
         }
