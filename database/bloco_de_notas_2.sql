@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 15/10/2024 às 17:35
+-- Host: 127.0.0.1:3306
+-- Tempo de geração: 16/10/2024 às 00:35
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -28,7 +28,7 @@ DELIMITER $$
 -- Procedimentos
 --
 DROP PROCEDURE IF EXISTS `cadastrar_usuario`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_usuario` (IN `nome_usaurio` VARCHAR(255), IN `email_usuario` VARCHAR(255), IN `senha_usuario` VARCHAR(255), IN `tipo_usuario` ENUM('ADM','COLLAB'), IN `data_entrada` DATETIME, OUT `Confirmacao` BOOLEAN)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_usuario` (IN `nome_usuario` VARCHAR(255), IN `email_usuario` VARCHAR(255), IN `senha_usuario` VARCHAR(255), IN `tipo_usuario` ENUM('ADM','COLLAB'), IN `data_entrada` DATETIME, OUT `Confirmacao` BOOLEAN)   BEGIN
 -- Declarar uma variável local e temporária durante o processamento dessa procedure
 DECLARE rows_count INT;
 
@@ -71,7 +71,7 @@ CREATE TABLE `tb_usuario` (
 INSERT INTO `tb_usuario` (`id_usuario`, `usuario_nome`, `usuario_email`, `usuario_senha`, `usuario_tipo`, `usuario_data_entrada`, `usuario_ativo`) VALUES
 (1, 'Kauan', 'kauan@gmail.com', 'kauan_007', 'ADM', '2024-10-08 17:30:00', 1),
 (9, 'Ronaldo', 'ronaldo@gmail.com', '1234', 'ADM', '2024-10-14 22:23:39', 1),
-(10, 'Luiz', 'luiz@gmail', '123', 'COLLAB', '2024-10-14 22:28:35', 1);
+(13, 'Luiz', 'luiz@gmail', '1234', 'ADM', '2024-10-15 19:32:53', 1);
 
 -- --------------------------------------------------------
 
@@ -112,7 +112,7 @@ ALTER TABLE `usuario_documento`
 -- AUTO_INCREMENT de tabela `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `usuario_documento`
