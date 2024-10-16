@@ -74,9 +74,10 @@
                     echo '<h3> Erro em buscar usuários </h3>'; //H4 para erro na hora da execução da view
                 }elseif(isset($_GET['status']) && ($_GET['status'] == 'failUpdate')){
                     echo '<h3> Falha ao atualizar informações </h3>'; //H4 para falha no processo de update
+                }elseif(isset($_GET['status']) && ($_GET['status'] == 'failUpdateAtivo')){
+                    echo '<h3> Erro ao excluir Usuário </h3>'; //H4 para erro ao excluir
                 }elseif(isset($_GET['status']) && ($_GET['status'] == 'fail')){
                     echo '<h3> Erro nos dados </h3>'; //H4 para dados não fornecidos
-                }else{
                 }
             ?>
 
@@ -119,7 +120,7 @@
                                     <!-- Primeira Section (EMAIL)- H4 do Email e input do Email -->
                                     <section class="sections_infos" id="section_email">
                                         <h4>Email:</h4>
-                                        <input type="email" name="email_usuario" value="<?php echo $row['usuario_email']?>" >
+                                        <input type="email" name="email_usuario" placeholder="<?php echo $row['usuario_email']?>" >
                                         <input type="hidden" name="id_usuario" value="<?php echo $row['id_usuario']?>"> <!-- input escondido para levar o valor do id do usuario -->
                                     </section>
                                     <!-- FIM Section EMAIL -->
@@ -128,15 +129,21 @@
                                         <h4>Senha:</h4>
                                         <input type="password" name="senha_usuario" value="<?php echo $row['usuario_senha']?>">
                                         <input type="submit" value="SALVAR">
-                                        <button class="delete_button">
-                                            <figure id="delete_icon">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </figure>
-                                        </button>
-                                    </section>
-                                    <!-- FIM Section Senha -->
                                 </form>
                                 <!-- FIM Forms-->
+
+                                        <form action="../../functions/excluir_usuario.php" method="POST"> 
+                                            <input type="hidden" name="id_usuario_delete" value="<?php echo $row['id_usuario']?>"> <!-- input escondido para levar o valor do id do usuario -->
+                                            <button class="delete_button" type="submit">
+                                                <figure id="delete_icon">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </figure>
+                                            </button>
+                                        </form>
+                                        <!-- FIM Forms-->
+
+                                    </section>
+                                    <!-- FIM Section Senha -->
                                 <hr> <!-- HR para separar cada usuário e suas informações-->
                         <?php
                     }
