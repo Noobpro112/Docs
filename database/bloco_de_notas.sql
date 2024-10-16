@@ -23,6 +23,31 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `bloco_de_notas` DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci;
 USE `bloco_de_notas`;
 
+
+DELIMITER $$
+--
+-- Procedimentos
+--
+DROP PROCEDURE IF EXISTS `cadastrar_usuario`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_usuario` (IN `nome_usuario` VARCHAR(255), IN `email_usuario` VARCHAR(255), IN `senha_usuario` VARCHAR(255), IN `tipo_usuario` ENUM('ADM','COLLAB'), IN `data_entrada` DATETIME, OUT `Confirmacao` BOOLEAN)   BEGIN
+-- Declarar uma variável local e temporária durante o processamento dessa procedure
+DECLARE rows_count INT;
+
+-- Procurar na tabela usuários para ver se o email digitado já está sendo usado
+SELECT COUNT(*) INTO rows_count FROM tb_usuario WHERE usuario_email = email_usuario AND usuario_ativo = 1;
+
+-- Bloco IF para caso o Email já esteja sendo usado || Bloco ELSE para Inserir usuário
+IF rows_count > 0 THEN
+	SET Confirmacao = FALSE;
+ELSE
+	INSERT INTO tb_usuario (usuario_nome, usuario_email, usuario_senha, usuario_tipo, usuario_data_entrada, usuario_ativo)
+    VALUES (nome_usuario, email_usuario, senha_usuario, tipo_usuario, data_entrada, 1);
+    SET Confirmacao = TRUE;
+END IF;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
