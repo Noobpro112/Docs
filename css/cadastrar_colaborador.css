@@ -22,6 +22,14 @@ main .InsertBox {
     padding: 10px;
 }
 
+/* Box para barra de pesquisa e informações de cada usuário */
+main #MainDivInfos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
 /* Box para pesquisar novo colaborador */
 main .BarraPesquisa{
     display: flex;
@@ -40,11 +48,12 @@ main .CadastrosBox .Conteudo{
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    margin-bottom: 8px;
-    margin-top: 8px;
+    height: 20px;
+    margin-bottom: 10px;
+    margin-top: 15px;
 }
 
-/* Box para mostrar o conteúdo dos usuários ativos */
+/* Box para mostrar o conteúdo principal(Nome e tipo) dos usuários ativos */
 main .CadastrosBox .Conteudo .InfoPrincipal{
     display: flex;
     justify-content: space-between;
@@ -57,6 +66,20 @@ main .CadastrosBox .Conteudo .InfoPrincipal{
 /* Seta para acessar mais informações*/
 main .CadastrosBox .Conteudo .SetinhaBaixo{
     cursor: pointer;
+}
+
+/* Form para mostrar mais informações que poderão ser editáveis*/
+main .CadastrosBox .Form_show_infos{
+    display: none;
+    flex-direction: column;
+    align-items: left;
+    margin-bottom: 10px;
+}
+
+/* Section onde ficara as h4 e os inputs para mostrar mais informações que poderão ser editáveis*/
+main .CadastrosBox .Form_show_infos .sections_infos{
+    display: flex;
+    align-items: left;
 }
 
 
