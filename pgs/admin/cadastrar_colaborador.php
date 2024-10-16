@@ -67,7 +67,7 @@
             
                 <?php
                 include_once('../../include/conexao.php');
-                $SelectUsuarios = "SELECT * FROM usuario_ativos";
+                $SelectUsuarios = "SELECT * FROM usuarios_ativos";
                 $executeSelectUsuario = $conexao -> query($SelectUsuarios);
                 if($executeSelectUsuario && $executeSelectUsuario -> num_rows > 0){
                     while($row = $executeSelectUsuario -> fetch_assoc()){
@@ -94,7 +94,7 @@
                                 </div>
                                 <!-- FIM Div Conteudo -->
                                 <!-- Forms onde vão aparecer o email e a senha do usuário, podendo ser alteradas pelo próprio ADM, além disso ele vai poder excluir o usuário também -->
-                                <form class="Form_show_infos">
+                                <form action="../../functions/update_infos.php" method="POST" class="Form_show_infos">
                                     <!-- Primeira Section (EMAIL)- H4 do Email e input do Email -->
                                     <section class="sections_infos" id="section_email">
                                         <h4>Email:</h4>
