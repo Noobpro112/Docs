@@ -2,11 +2,7 @@
 const editor = document.getElementById('editor');
 const fontSizeDisplay = document.getElementById('font-size-display');
 let currentFontSize = 14;
-let isResizing = false;
-let isDragging = false;
-let currentImage = null;
-let startX, startY, startLeft, startTop, startWidth, startHeight;
-let resizeHandle = '';
+let draggedImage = null;
 
 // Funções de formatação de texto
 function formatText(command, value = null) {
@@ -42,158 +38,79 @@ function alignText(alignment) {
     updateAlignmentButtons();
 }
 
-// Funções de manipulação de imagens
-function createResizeHandles(img) {
-    const handles = ['nw', 'ne', 'sw', 'se'];
-    handles.forEach(handle => {
-        const div = document.createElement('div');
-        div.className = `resize-handle ${handle}-resize`;
-        div.style.position = 'absolute';
-        div.style.width = '10px';
-        div.style.height = '10px';
-        div.style.background = 'blue';
-        div.style.cursor = `${handle}-resize`;
-        img.parentNode.appendChild(div);
-    });
-    positionResizeHandles(img);
-}
-
-function positionResizeHandles(img) {
-    const handles = img.parentNode.querySelectorAll('.resize-handle');
-    const rect = img.getBoundingClientRect();
-    const container = img.parentNode.getBoundingClientRect();
-
-    handles.forEach(handle => {
-        if (handle.className.includes('nw')) {
-            handle.style.left = `${rect.left - container.left - 5}px`;
-            handle.style.top = `${rect.top - container.top - 5}px`;
-        } else if (handle.className.includes('ne')) {
-            handle.style.left = `${rect.right - container.left - 5}px`;
-            handle.style.top = `${rect.top - container.top - 5}px`;
-        } else if (handle.className.includes('sw')) {
-            handle.style.left = `${rect.left - container.left - 5}px`;
-            handle.style.top = `${rect.bottom - container.top - 5}px`;
-        } else if (handle.className.includes('se')) {
-            handle.style.left = `${rect.right - container.left - 5}px`;
-            handle.style.top = `${rect.bottom - container.top - 5}px`;
-        }
-    });
-}
-
-function wrapImageInContainer(img) {
-    const container = document.createElement('div');
-    container.style.position = 'relative';
-    container.style.display = 'inline-block';
-    container.style.cursor = 'move';
-    img.parentNode.insertBefore(container, img);
-    container.appendChild(img);
-    createResizeHandles(img);
-    return container;
-}
-
-function initImageInteraction(e) {
-    if (e.target.tagName.toLowerCase() === 'img' || e.target.className.includes('resize-handle')) {
-        if (e.target.tagName.toLowerCase() === 'img') {
-            currentImage = e.target.parentNode;
-        } else {
-            currentImage = e.target.parentNode;
-            resizeHandle = e.target.className.split(' ')[1].split('-')[0];
-        }
-
-        startX = e.clientX;
-        startY = e.clientY;
-        startLeft = currentImage.offsetLeft;
-        startTop = currentImage.offsetTop;
-        startWidth = currentImage.firstChild.clientWidth;
-        startHeight = currentImage.firstChild.clientHeight;
-
-        if (e.target.className.includes('resize-handle')) {
-            isResizing = true;
-        } else {
-            isDragging = true;
-        }
-
-        document.addEventListener('mousemove', handleImageInteraction);
-        document.addEventListener('mouseup', stopImageInteraction);
-        e.preventDefault();
-    }
-}
-
-function handleImageInteraction(e) {
-    if (isResizing) {
-        resizeImage(e);
-    } else if (isDragging) {
-        dragImage(e);
-    }
-}
-
-function resizeImage(e) {
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    let newWidth, newHeight;
-
-    if (resizeHandle.includes('e')) {
-        newWidth = startWidth + dx;
-    } else if (resizeHandle.includes('w')) {
-        newWidth = startWidth - dx;
-    }
-
-    if (resizeHandle.includes('s')) {
-        newHeight = startHeight + dy;
-    } else if (resizeHandle.includes('n')) {
-        newHeight = startHeight - dy;
-    }
-
-    // Manter proporção
-    const ratio = startWidth / startHeight;
-    if (newWidth && !newHeight) {
-        newHeight = newWidth / ratio;
-    } else if (newHeight && !newWidth) {
-        newWidth = newHeight * ratio;
-    }
-
-    currentImage.firstChild.style.width = `${newWidth}px`;
-    currentImage.firstChild.style.height = `${newHeight}px`;
-    positionResizeHandles(currentImage.firstChild);
-}
-
-function dragImage(e) {
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    currentImage.style.left = `${startLeft + dx}px`;
-    currentImage.style.top = `${startTop + dy}px`;
-    positionResizeHandles(currentImage.firstChild);
-}
-
-function stopImageInteraction() {
-    isResizing = false;
-    isDragging = false;
-    document.removeEventListener('mousemove', handleImageInteraction);
-    document.removeEventListener('mouseup', stopImageInteraction);
-    Salva_Conteudo();
-}
-
+// Função para inserção de imagem
 function handleImageUpload(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            ensureFocusOnEditor();
             var img = document.createElement('img');
             img.src = e.target.result;
             img.style.maxWidth = '100%';
+            img.style.verticalAlign = 'middle';
+            img.draggable = true;
 
-            var selection = window.getSelection();
-            var range = selection.getRangeAt(0);
-            range.insertNode(img);
-            range.setStartAfter(img);
-            range.setEndAfter(img);
-            selection.removeAllRanges();
-            selection.addRange(range);
+            // Adicionar event listeners para arrastar
+            img.addEventListener('dragstart', handleDragStart);
+            img.addEventListener('dragend', handleDragEnd);
 
-            wrapImageInContainer(img);
+            // Inserir a imagem na posição do cursor
+            insertImageAtCursor(img);
+
             Salva_Conteudo();
         }
         reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function insertImageAtCursor(img) {
+    const selection = window.getSelection();
+    if (selection.rangeCount) {
+        const range = selection.getRangeAt(0);
+        if (!isInsideToolbar(range.startContainer)) {
+            range.insertNode(img);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            console.warn("Não é permitido inserir imagens na toolbar.");
+        }
+    } else {
+        editor.appendChild(img);
+    }
+}
+
+function isInsideToolbar(node) {
+    while (node != null) {
+        if (node.classList && node.classList.contains('toolbar')) {
+            return true;
+        }
+        node = node.parentNode;
+    }
+    return false;
+}
+
+// Funções para arrastar imagens
+function handleDragStart(e) {
+    draggedImage = e.target;
+    e.dataTransfer.setData('text/plain', ''); // Necessário para o Firefox
+}
+
+function handleDragEnd(e) {
+    draggedImage = null;
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    if (draggedImage && e.target !== draggedImage) {
+        const range = document.caretRangeFromPoint(e.clientX, e.clientY);
+        if (range && !isInsideToolbar(range.startContainer)) {
+            range.insertNode(draggedImage);
+            Salva_Conteudo();
+        }
     }
 }
 
@@ -245,13 +162,8 @@ editor.addEventListener('keyup', updateToolbar);
 editor.addEventListener('mouseup', updateToolbar);
 editor.addEventListener('mouseup', updateAlignmentButtons);
 editor.addEventListener('keyup', updateAlignmentButtons);
-document.addEventListener('mousedown', initImageInteraction);
-
-editor.addEventListener('mousedown', function(e) {
-    if (e.target.tagName.toLowerCase() === 'img' || e.target.className.includes('resize-handle')) {
-        e.preventDefault();
-    }
-});
+editor.addEventListener('dragover', handleDragOver);
+editor.addEventListener('drop', handleDrop);
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('imageUpload').addEventListener('change', function () {
