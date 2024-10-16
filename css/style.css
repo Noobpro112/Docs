@@ -17,7 +17,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 22%;
+    margin-top: 23%;
 }
 
 .boxLogin {
@@ -35,6 +35,7 @@ h2 {
 .boxLogin-Title h2 {
     margin-left: 15px;
     margin-bottom: 10px;
+    font-size: 40px;
 }
 
 .boxLogin-input {
@@ -76,7 +77,14 @@ h2 {
     height: 35px;
     border: none;
     font-size: 14px;
-    background-color: #ededed;
+    background-color: #ededed !important;
+}
+
+
+
+input:-webkit-autofill {
+    background-color: #ededed !important;
+    box-shadow: 0 0 0px 1000px #ededed inset !important; 
 }
 
 .inputEmail input {
@@ -144,8 +152,14 @@ h2 {
 #ondaCinza {
     opacity: 0.4;
     width: -webkit-fill-available;
+    z-index: -1;
 }
 
 #ondaPreta {
     width: -webkit-fill-available;
+    z-index: 1;
+}
+
+#logoBranca {
+
 }
