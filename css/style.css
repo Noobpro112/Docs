@@ -9,12 +9,15 @@ html {
     --primary-font: "Montserrat", sans-serif;
 }
 
+
+
 .linhaLogin {
     width: auto;
-    height: 600px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 22%;
 }
 
 .boxLogin {
@@ -131,4 +134,18 @@ h2 {
     font-size: 18px;
     padding: 0px 10px 0px 17px;
     color: #121820;
+}
+
+.ondas img {
+    position: fixed;
+    top: 0px;
+}
+
+#ondaCinza {
+    opacity: 0.4;
+    width: -webkit-fill-available;
+}
+
+#ondaPreta {
+    width: -webkit-fill-available;
 }

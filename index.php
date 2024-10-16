@@ -13,6 +13,12 @@
 </head>
 
 <body>
+    <section class="ondas">
+        <img id="ondaCinza" src="imgs/onda-cinza.svg" alt="Onda Cinza" />
+        <img id="ondaPreta" src="imgs/onda-preta.svg" alt="Onda preta" />
+    </section>
+
+
     <section class="linhaLogin">
         <div class="boxLogin">
             <!-- Forms do login -->
@@ -22,7 +28,7 @@
                 if (isset($_GET['status']) && ($_GET['status'] == 'emailfailed')) {
                     echo '<h4> Email incorreto </h4>'; //H4 para email incorreto
                 } elseif (isset($_GET['status']) && ($_GET['status'] == 'senhafailed')) {
-                    echo '<h4> Senha incorreta </h4>';//H4 para senha incorreta
+                    echo '<h4> Senha incorreta </h4>'; //H4 para senha incorreta
                 } elseif (isset($_GET['status']) && ($_GET['status'] == 'bothfailed')) {
                     echo '<h4> Email e senha incorretos </h4>'; //H4 para ambos incorretos
                 } elseif (isset($_GET['status']) && ($_GET['status'] == 'ativoemailfailed')) {
@@ -59,7 +65,7 @@
         const senhaInput = document.getElementById("senha");
         const togglePassword = document.getElementById("togglePassword");
 
-        togglePassword.addEventListener("click", function () {
+        togglePassword.addEventListener("click", function() {
             // Alternar o tipo de input entre "password" e "text"
             const isPassword = senhaInput.type === "password";
             senhaInput.type = isPassword ? "text" : "password";
