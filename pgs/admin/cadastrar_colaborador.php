@@ -23,7 +23,6 @@
                 }elseif(isset($_GET['status']) && ($_GET['status'] == 'fail')){
                     echo '<h4> Dados não fornecidos </h4>'; //H4 para dados não fornecidos pelo usuário
                 }else{
-
                 }
             ?>
 
@@ -67,8 +66,10 @@
             
                 <?php
                 include_once('../../include/conexao.php');
-                $SelectUsuarios = "SELECT * FROM usuarios_ativos";
+
+                $SelectUsuarios = "SELECT * FROM usuarios_ativos"; //Selecionar os usuários ativos que são pegos pela View
                 $executeSelectUsuario = $conexao -> query($SelectUsuarios);
+
                 if($executeSelectUsuario && $executeSelectUsuario -> num_rows > 0){
                     while($row = $executeSelectUsuario -> fetch_assoc()){
                         ?>
@@ -98,13 +99,14 @@
                                     <!-- Primeira Section (EMAIL)- H4 do Email e input do Email -->
                                     <section class="sections_infos" id="section_email">
                                         <h4>Email:</h4>
-                                        <input type="text" name="email_usuario" placeholder="<?php echo $row['usuario_email']?>">
+                                        <input type="text" name="email_usuario" placeholder="<?php echo $row['usuario_email']?>" value="">
+                                        <input type="hidden" name="id_usuario" value="<?php echo $row['id_usuario']?>"> <!-- input escondido para levar o valor do id do usuario -->
                                     </section>
                                     <!-- FIM Section EMAIL -->
                                     <!-- Segunda Section (Senha)- H4 da Senha, input da Email, botão de salvar e botão de delete -->
                                     <section class="sections_infos" id="section_senha">
                                         <h4>Senha:</h4>
-                                        <input type="password" name="senha_usuario" placeholder="<?php echo $row['usuario_senha']?> ">
+                                        <input type="password" name="senha_usuario" placeholder="<?php echo $row['usuario_senha']?>" value="">
                                         <input type="submit" value="SALVAR">
                                         <button id="delete_button">
                                             <figure id="delete_icon">
