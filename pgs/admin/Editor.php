@@ -16,26 +16,33 @@ while ($row = mysqli_fetch_assoc($resultado)) {
     <meta charset="UTF-8">
     <title>Editor de Texto Rico</title>
     <style>
-        .resize-handle {
-            position: absolute;
+        .img-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        .resizer {
             width: 10px;
             height: 10px;
             background: blue;
-            border: 1px solid white;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            cursor: se-resize;
         }
-        .nw-resize { cursor: nw-resize; }
-        .ne-resize { cursor: ne-resize; }
-        .sw-resize { cursor: sw-resize; }
-        .se-resize { cursor: se-resize; }
+
         .toolbar button {
             user-select: none;
         }
+
         img {
             transition: all 0.3s ease;
         }
+
         img:hover {
             box-shadow: 0 0 0 2px #007bff;
         }
+
         body, html {
             margin: 0;
             padding: 0;
@@ -107,10 +114,13 @@ while ($row = mysqli_fetch_assoc($resultado)) {
         <button type="button" onclick="insertList('insertUnorderedList')">Lista com Marcadores</button>
         <button type="button" onclick="insertList('insertOrderedList')">Lista Numerada</button>
         <input type="text" id="Titulo" name="Titulo" value="<?php echo $titulo ?>" placeholder="Titulo">
-        <a href="home.php"><button type="button">Voltar</button></a>
+        <a href="home.php">
+            <button type="button">Voltar</button>
+        </a>
         <button type="button" onclick="triggerImageUpload()">Inserir Imagem</button>
         <input type="file" id="imageUpload" style="display: none;" accept="image/*">
-        <input type="hidden" id="id" name="id" value="<?php echo $id; ?>"> <!-- não mexe nessa porra não, vou deixar aqui quietinho e deixa ele ae escondidinho. no maximo troca ele de lugar no html mas ele tem que estar no código-->
+        <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+        <!-- não mexe nessa porra não, vou deixar aqui quietinho e deixa ele ae escondidinho. no maximo troca ele de lugar no html mas ele tem que estar no código-->
     </div> <!-- Fim Botões -->
 
     <div id="editor" contenteditable="true" style="font-size: <?php echo $tamanho_fonte; ?>px;">

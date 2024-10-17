@@ -67,7 +67,7 @@
             
                 <?php
                 include_once('../../include/conexao.php');
-                $SelectUsuarios = "SELECT * FROM usuario_ativos";
+                $SelectUsuarios = "SELECT * FROM usuarios_ativo";
                 $executeSelectUsuario = $conexao -> query($SelectUsuarios);
                 if($executeSelectUsuario && $executeSelectUsuario -> num_rows > 0){
                     while($row = $executeSelectUsuario -> fetch_assoc()){

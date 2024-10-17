@@ -92,19 +92,30 @@ function isInsideToolbar(node) {
 // Funções para arrastar imagens
 function handleDragStart(e) {
     draggedImage = e.target;
-    e.dataTransfer.setData('text/plain', ''); // Necessário para o Firefox
+    e.dataTransfer.setData('text/plain', '');
+    e.target.style.opacity = '0.5';
+    e.target.style.border = '2px dashed #007bff';
 }
 
 function handleDragEnd(e) {
+    e.target.style.opacity = '';
+    e.target.style.border = '';
     draggedImage = null;
 }
 
 function handleDragOver(e) {
     e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    highlightDropZone(e);
+}
+
+function handleDragLeave(e) {
+    removeDropZoneHighlight();
 }
 
 function handleDrop(e) {
     e.preventDefault();
+    removeDropZoneHighlight();
     if (draggedImage && e.target !== draggedImage) {
         const range = document.caretRangeFromPoint(e.clientX, e.clientY);
         if (range && !isInsideToolbar(range.startContainer)) {
@@ -112,6 +123,39 @@ function handleDrop(e) {
             Salva_Conteudo();
         }
     }
+}
+
+function highlightDropZone(e) {
+    const dropZone = getDropZone(e.clientX, e.clientY);
+    if (dropZone) {
+        dropZone.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
+        dropZone.style.border = '2px dashed #007bff';
+    }
+}
+
+function removeDropZoneHighlight() {
+    const previousDropZone = editor.querySelector('.drop-zone-highlight');
+    if (previousDropZone) {
+        previousDropZone.style.backgroundColor = '';
+        previousDropZone.style.border = '';
+        previousDropZone.classList.remove('drop-zone-highlight');
+    }
+}
+
+function getDropZone(x, y) {
+    const range = document.caretRangeFromPoint(x, y);
+    if (range && editor.contains(range.commonAncestorContainer)) {
+        let node = range.commonAncestorContainer;
+        while (node !== editor) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                node.classList.add('drop-zone-highlight');
+                return node;
+            }
+            node = node.parentNode;
+        }
+        return editor;
+    }
+    return null;
 }
 
 // Funções de atualização da interface
@@ -145,6 +189,15 @@ function updateAlignmentButtons() {
     }
 }
 
+function makeImagesDraggable() {
+    const images = editor.querySelectorAll('img');
+    images.forEach(img => {
+        img.draggable = true;
+        img.addEventListener('dragstart', handleDragStart);
+        img.addEventListener('dragend', handleDragEnd);
+    });
+}
+
 function ensureFocusOnEditor() {
     const selection = window.getSelection();
     if (!editor.contains(selection.anchorNode) || selection.anchorNode.nodeType === Node.ELEMENT_NODE) {
@@ -164,6 +217,9 @@ editor.addEventListener('mouseup', updateAlignmentButtons);
 editor.addEventListener('keyup', updateAlignmentButtons);
 editor.addEventListener('dragover', handleDragOver);
 editor.addEventListener('drop', handleDrop);
+editor.addEventListener('dragover', handleDragOver);
+editor.addEventListener('dragleave', handleDragLeave);
+editor.addEventListener('drop', handleDrop);
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('imageUpload').addEventListener('change', function () {
@@ -181,6 +237,24 @@ document.addEventListener('DOMContentLoaded', function () {
 // Inicialização
 updateAlignmentButtons();
 updateToolbar();
+makeImagesDraggable();
+
+function handleImageUpload(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxWidth = '100%';
+            img.style.verticalAlign = 'middle';
+
+            insertImageAtCursor(img);
+            makeImagesDraggable(); // Torna a nova imagem arrastável
+            Salva_Conteudo();
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 function triggerImageUpload() {
     document.getElementById('imageUpload').click();
