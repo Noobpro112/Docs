@@ -82,6 +82,16 @@ main .CadastrosBox .Form_show_infos .sections_infos{
     align-items: left;
 }
 
+/* Cursor pointer no input de Salvar*/
+main .CadastrosBox .Form_show_infos .sections_infos input[type="submit"] {
+    cursor: pointer;
+}
+
+/* Cursor pointer no botão de excluir*/
+main .CadastrosBox .Form_show_infos .sections_infos .delete_button{
+    cursor: pointer;
+}
+
 
 
 

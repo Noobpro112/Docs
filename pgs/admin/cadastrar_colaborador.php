@@ -7,7 +7,11 @@
     <title>Cadastrar</title>
     <link rel="stylesheet" href="../../css/cadastrar_colaborador.css"> <!--Link para CSS externo, os estilos estarão lá-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"><!--Link para usar os icones da bootstrap-->
-
+    <style>
+        h3{
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <main>
@@ -62,13 +66,31 @@
                 </figure>
                 <input type="text" name="NomePesquisa"> <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
             </div>
+
+            <!--Bloco PHP para verficar as repostas de erro do servidor-->
+            <?php
+                if(isset($_GET['status']) && ($_GET['status'] == 'failEmailUpdate')){
+                    echo '<h3> Email indisponível </h3>'; //H4 para email já utilizado
+                }elseif(isset($_GET['status']) && ($_GET['status'] == 'failView')){
+                    echo '<h3> Erro em buscar usuários </h3>'; //H4 para erro na hora da execução da view
+                }elseif(isset($_GET['status']) && ($_GET['status'] == 'failUpdate')){
+                    echo '<h3> Falha ao atualizar informações </h3>'; //H4 para falha no processo de update
+                }elseif(isset($_GET['status']) && ($_GET['status'] == 'failUpdateAtivo')){
+                    echo '<h3> Erro ao excluir Usuário </h3>'; //H4 para erro ao excluir
+                }elseif(isset($_GET['status']) && ($_GET['status'] == 'fail')){
+                    echo '<h3> Erro nos dados </h3>'; //H4 para dados não fornecidos
+                }
+            ?>
+
             <!--div onde ficarão ficarão listados os nomes dos colaboradores que já estão cadastrados, iniciada antes do PHP pois ela é a div principal, ettão só serão criadas outras divs para as informações dos usuarios-->
             <div class="CadastrosBox">
             
                 <?php
                 include_once('../../include/conexao.php');
-                $SelectUsuarios = "SELECT * FROM usuarios_ativo";
+
+                $SelectUsuarios = "SELECT * FROM usuarios_ativos"; //Selecionar os usuários ativos que são pegos pela View
                 $executeSelectUsuario = $conexao -> query($SelectUsuarios);
+
                 if($executeSelectUsuario && $executeSelectUsuario -> num_rows > 0){
                     while($row = $executeSelectUsuario -> fetch_assoc()){
                         ?>
@@ -93,28 +115,36 @@
                                     </button>
                                 </div>
                                 <!-- FIM Div Conteudo -->
+
                                 <!-- Forms onde vão aparecer o email e a senha do usuário, podendo ser alteradas pelo próprio ADM, além disso ele vai poder excluir o usuário também -->
-                                <form class="Form_show_infos">
+                                <form action="../../functions/update_infos.php" method="POST" class="Form_show_infos">
                                     <!-- Primeira Section (EMAIL)- H4 do Email e input do Email -->
                                     <section class="sections_infos" id="section_email">
                                         <h4>Email:</h4>
-                                        <input type="text" name="email_usuario" placeholder="<?php echo $row['usuario_email']?>">
+                                        <input type="email" name="email_usuario" placeholder="<?php echo $row['usuario_email']?>" >
+                                        <input type="hidden" name="id_usuario" value="<?php echo $row['id_usuario']?>"> <!-- input escondido para levar o valor do id do usuario -->
                                     </section>
                                     <!-- FIM Section EMAIL -->
                                     <!-- Segunda Section (Senha)- H4 da Senha, input da Email, botão de salvar e botão de delete -->
                                     <section class="sections_infos" id="section_senha">
                                         <h4>Senha:</h4>
-                                        <input type="password" name="senha_usuario" placeholder="<?php echo $row['usuario_senha']?> ">
+                                        <input type="password" name="senha_usuario" value="<?php echo $row['usuario_senha']?>">
                                         <input type="submit" value="SALVAR">
-                                        <button id="delete_button">
-                                            <figure id="delete_icon">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </figure>
-                                        </button>
-                                    </section>
-                                    <!-- FIM Section Senha -->
                                 </form>
                                 <!-- FIM Forms-->
+
+                                        <form action="../../functions/excluir_usuario.php" method="POST">
+                                            <input type="hidden" name="id_usuario_delete" value="<?php echo $row['id_usuario']?>"> <!-- input escondido para levar o valor do id do usuario -->
+                                            <button class="delete_button" type="submit">
+                                                <figure id="delete_icon">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </figure>
+                                            </button>
+                                        </form>
+                                        <!-- FIM Forms-->
+
+                                    </section>
+                                    <!-- FIM Section Senha -->
                                 <hr> <!-- HR para separar cada usuário e suas informações-->
                         <?php
                     }
