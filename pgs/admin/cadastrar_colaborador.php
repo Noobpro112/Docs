@@ -20,10 +20,10 @@
         <div class="headerLogo">
             <a href="home.php"><img src="../../imgs/logo-branca-t.png" alt="Logo" width="80px"></a>
         </div>
-        <div class="DropDown" id="profile-icon" onclick="toggleMenu()">
-            <div class="circle">
+        <div class="DropDown" id="profile-icon" >
+            <button onclick="menuAparece()" class="circle" >
                 <i class="fa-solid fa-user"></i>
-            </div>
+            </button>
         </div>
     </header>
     <div class="menuDropDown" id="menuDropDown">
@@ -183,7 +183,7 @@
     </main>
     <script>
         // Função para exibir ou ocultar o menu dropdown
-        function toggleMenu() {
+        function menuAparece() {
             var dropdown = document.getElementById('menuDropDown');
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
@@ -200,7 +200,7 @@
                 }
             }
         }
-        
+
         function ShowFormInfo(button) { //Criar a função em JS que será chamada ao usuário clicar na seta - passamos como parâmetro justamente o botão por meio daquele comando THIS para assim podermos buscar pelo forms
             const form_infos = button.parentElement.nextElementSibling; //Criamos a varíavel que irá guardar o forms que queremos que apareça. Portanto, colocamos button.parentElement para buscar o elemento pai onde o botão está inserido, que no caso seria a div com class="Conteudo". Logo mais, nós adicionamos o parâmetro nextElementSibling, que irá buscar pelo elemento irmão (do lado) do div PAI do nosso botão, que no caso é justamente o forms, dess forma chegamos até o forms que queremos trocar o display para ele aparecer
             form_infos.style.display = (form_infos.style.display === 'none' || form_infos.style.display === '') ? 'flex' : 'none'; //Queremos acessar o estilo do forms, mais especificamente o display dele, por isso colocamos: form_infos.style.display. Após isso vem a parte crucial do código, temos nossa condição, se o display estiver como none ou se o display estiver vazio (o que seria para saber se o forms está aparecendo ou não). Depois disso, usamos o '?' que serve como encurtamento do bloco if/else, então se algum dos argumentos for TRUE - ou seja o forms não está visível - ele passa o display para flex para ele ficar visível, caso contrário se nenhuma delas for verdadeira então o forms está visível, portanto ele manda o display ficar none para o forms se esconder quando o usuário clicar na setinha denovo
