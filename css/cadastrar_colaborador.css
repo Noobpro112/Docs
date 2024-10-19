@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary-color: #121820;
+    --primary-font: "Montserrat", sans-serif;
+}
+
 /* Main com o tamanho da tela inteira */
 main {
     width: 100vw;
@@ -92,6 +97,28 @@ main .CadastrosBox .Form_show_infos .sections_infos .delete_button{
     cursor: pointer;
 }
 
+header {
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content:space-between;
+    padding: 20px 10%;
+    align-items: center;
+}
+
+
+.circle {
+    background-color: #fff;
+    border-radius: 30px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle i {
+    color: #000;
+}
 
 
 
