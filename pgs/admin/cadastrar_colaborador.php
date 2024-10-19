@@ -18,14 +18,26 @@
 <body>
     <header>
         <div class="headerLogo">
-            <a href=""><img src="../../imgs/logo-branca-t.png" alt="Logo"></a>
+            <a href="home.php"><img src="../../imgs/logo-branca-t.png" alt="Logo" width="80px"></a>
         </div>
-        <div class="menuCircle">
+        <div class="DropDown" id="profile-icon" onclick="toggleMenu()">
             <div class="circle">
-                <i class="fa-solid fa-user"></i>                
+                <i class="fa-solid fa-user"></i>
             </div>
         </div>
     </header>
+    <div class="menuDropDown" id="menuDropDown">
+        <p>Colaborador Nome</p> <!--Puxar do banco de dados o nome do colaborador!!!!!-->
+        <a href="#">
+            <i class="fa-solid fa-gear"></i>
+            <label>Configurações</label>
+        </a>
+
+        <a href="#">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <label>Logout</label>
+        </a>
+    </div>
     <main>
         <!--Forms para a box onde o admin vai colocar as informações para cadastro-->
         <form action="../../functions/cadastrar_colaborador.php" class="InsertBox" method="POST">
@@ -170,10 +182,31 @@
         <!-- FIM DIv Mais Infos -->
     </main>
     <script>
+        // Função para exibir ou ocultar o menu dropdown
+        function toggleMenu() {
+            var dropdown = document.getElementById('menuDropDown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Fecha o menu dropdown ao clicar fora do menu e do ícone
+        window.onclick = function(event) {
+            var dropdown = document.getElementById('menuDropDown');
+            var profileIcon = document.getElementById('profile-icon');
+
+            // Se o clique for fora do dropdown e fora do ícone de perfil, fecha o menu
+            if (!dropdown.contains(event.target) && !profileIcon.contains(event.target)) {
+                if (dropdown.style.display === 'block') {
+                    dropdown.style.display = 'none';
+                }
+            }
+        }
+        
         function ShowFormInfo(button) { //Criar a função em JS que será chamada ao usuário clicar na seta - passamos como parâmetro justamente o botão por meio daquele comando THIS para assim podermos buscar pelo forms
             const form_infos = button.parentElement.nextElementSibling; //Criamos a varíavel que irá guardar o forms que queremos que apareça. Portanto, colocamos button.parentElement para buscar o elemento pai onde o botão está inserido, que no caso seria a div com class="Conteudo". Logo mais, nós adicionamos o parâmetro nextElementSibling, que irá buscar pelo elemento irmão (do lado) do div PAI do nosso botão, que no caso é justamente o forms, dess forma chegamos até o forms que queremos trocar o display para ele aparecer
             form_infos.style.display = (form_infos.style.display === 'none' || form_infos.style.display === '') ? 'flex' : 'none'; //Queremos acessar o estilo do forms, mais especificamente o display dele, por isso colocamos: form_infos.style.display. Após isso vem a parte crucial do código, temos nossa condição, se o display estiver como none ou se o display estiver vazio (o que seria para saber se o forms está aparecendo ou não). Depois disso, usamos o '?' que serve como encurtamento do bloco if/else, então se algum dos argumentos for TRUE - ou seja o forms não está visível - ele passa o display para flex para ele ficar visível, caso contrário se nenhuma delas for verdadeira então o forms está visível, portanto ele manda o display ficar none para o forms se esconder quando o usuário clicar na setinha denovo
         }
+
+        
     </script>
 </body>
 

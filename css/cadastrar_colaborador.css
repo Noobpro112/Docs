@@ -10,92 +10,6 @@
     --primary-font: "Montserrat", sans-serif;
 }
 
-/* Main com o tamanho da tela inteira */
-main {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-/* Box para cadastrar novo colaborador */
-main .InsertBox {
-    border: 1px solid black;
-    width: 10%;
-    height: 30%;
-    padding: 10px;
-}
-
-/* Box para barra de pesquisa e informações de cada usuário */
-main #MainDivInfos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-}
-
-/* Box para pesquisar novo colaborador */
-main .BarraPesquisa{
-    display: flex;
-    justify-content: space-evenly;
-    width: 12%;
-}
-
-/* Box para mostrar usuários ativos */
-main .CadastrosBox{
-    width: 20%;
-}
-
-/* Box para mostrar o conteúdo dos usuários ativos */
-main .CadastrosBox .Conteudo{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    height: 20px;
-    margin-bottom: 10px;
-    margin-top: 15px;
-}
-
-/* Box para mostrar o conteúdo principal(Nome e tipo) dos usuários ativos */
-main .CadastrosBox .Conteudo .InfoPrincipal{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 40%;
-    margin-bottom: 15px;
-    margin-top: 15px;
-}
-
-/* Seta para acessar mais informações*/
-main .CadastrosBox .Conteudo .SetinhaBaixo{
-    cursor: pointer;
-}
-
-/* Form para mostrar mais informações que poderão ser editáveis*/
-main .CadastrosBox .Form_show_infos{
-    display: none;
-    flex-direction: column;
-    align-items: left;
-    margin-bottom: 10px;
-}
-
-/* Section onde ficara as h4 e os inputs para mostrar mais informações que poderão ser editáveis*/
-main .CadastrosBox .Form_show_infos .sections_infos{
-    display: flex;
-    align-items: left;
-}
-
-/* Cursor pointer no input de Salvar*/
-main .CadastrosBox .Form_show_infos .sections_infos input[type="submit"] {
-    cursor: pointer;
-}
-
-/* Cursor pointer no botão de excluir*/
-main .CadastrosBox .Form_show_infos .sections_infos .delete_button{
-    cursor: pointer;
-}
 
 header {
     background-color: var(--primary-color);
@@ -118,7 +32,57 @@ header {
 
 .circle i {
     color: #000;
+    font-size: 23px;
 }
 
+.menuDropDown {
+    background-color: var(--primary-color);
+    opacity: 0.8;
+    width: fit-content;
+    height: fit-content;
+    padding: 25px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    position: absolute;
+    right: 45px;
+    display: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.menuDropDown p {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    font-family: var(--primary-font);
+    margin: 15px 0px;
+}
+
+.menuDropDown a {
+    display: flex;
+    padding: 15px 10px;
+    border-top: 1px solid #fff;
+    width: 100%;
+    text-decoration: none;
+    align-items: center;
+}
+
+.menuDropDown a i {
+    color:#fff;
+    font-size: 18px;
+    margin-right: 15px;
+}
+
+.menuDropDown a label {
+    color: #fff;
+    font-size: 17px;
+    font-family: var(--primary-font);
+}
+
+
+.menuDropDown a:hover {
+    background-color: #444;
+}
 
 
