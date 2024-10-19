@@ -6,7 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar</title>
-    <link rel="stylesheet" href="../../css/cadastrar_colaborador.css"> <!--Link para CSS externo, os estilos estarão lá-->
+    <link rel="icon" type="image/x-icon" href="../../imgs/favicon.ico">
+    <link rel="stylesheet" href="../../css/cadastrar_colaborador.css">
+    <link rel="stylesheet" href="../../css/header.css"> <!--Link para CSS externo, os estilos estarão lá-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"><!--Link para usar os icones da bootstrap-->
     <script src="https://kit.fontawesome.com/a760d1109c.js" crossorigin="anonymous"></script>
     <style>
@@ -20,8 +22,8 @@
         <div class="headerLogo">
             <a href="home.php"><img src="../../imgs/logo-branca-t.png" alt="Logo" width="80px"></a>
         </div>
-        <div class="DropDown" id="profile-icon" >
-            <button onclick="menuAparece()" class="circle" >
+        <div class="DropDown" id="profile-icon">
+            <button class="circle" onclick="toggleMenu()">
                 <i class="fa-solid fa-user"></i>
             </button>
         </div>
@@ -183,7 +185,7 @@
     </main>
     <script>
         // Função para exibir ou ocultar o menu dropdown
-        function menuAparece() {
+        function toggleMenu() {
             var dropdown = document.getElementById('menuDropDown');
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
@@ -205,8 +207,6 @@
             const form_infos = button.parentElement.nextElementSibling; //Criamos a varíavel que irá guardar o forms que queremos que apareça. Portanto, colocamos button.parentElement para buscar o elemento pai onde o botão está inserido, que no caso seria a div com class="Conteudo". Logo mais, nós adicionamos o parâmetro nextElementSibling, que irá buscar pelo elemento irmão (do lado) do div PAI do nosso botão, que no caso é justamente o forms, dess forma chegamos até o forms que queremos trocar o display para ele aparecer
             form_infos.style.display = (form_infos.style.display === 'none' || form_infos.style.display === '') ? 'flex' : 'none'; //Queremos acessar o estilo do forms, mais especificamente o display dele, por isso colocamos: form_infos.style.display. Após isso vem a parte crucial do código, temos nossa condição, se o display estiver como none ou se o display estiver vazio (o que seria para saber se o forms está aparecendo ou não). Depois disso, usamos o '?' que serve como encurtamento do bloco if/else, então se algum dos argumentos for TRUE - ou seja o forms não está visível - ele passa o display para flex para ele ficar visível, caso contrário se nenhuma delas for verdadeira então o forms está visível, portanto ele manda o display ficar none para o forms se esconder quando o usuário clicar na setinha denovo
         }
-
-        
     </script>
 </body>
 

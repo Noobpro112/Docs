@@ -15,6 +15,7 @@ while ($row = mysqli_fetch_assoc($resultado)) {
 <head>
     <meta charset="UTF-8">
     <title>Editor de Texto Rico</title>
+    <link rel="icon" type="image/x-icon" href="../../imgs/favicon.ico">
     <style>
         .img-container {
             display: inline-block;

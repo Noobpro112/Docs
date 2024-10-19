@@ -10,6 +10,7 @@ $resultado = mysqli_query($conexao, $sql);
 <head>
     <meta charset="UTF-8">
     <title>HOME ADM</title>
+    <link rel="icon" type="image/x-icon" href="../../imgs/favicon.ico">
 </head>
 <body>
 <h1>Selecione um Arquivo:</h1>
