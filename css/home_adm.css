@@ -1,0 +1,37 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Botão de '+' que vai fazer aparecer outras divs*/
+button#plus_button{
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    color: white;
+    background-color: black;
+}
+
+/* div que vai aparecer ao clicar no botão de mais, onde irão aparecer as opções de criar pasta e de criar documentos*/
+div#opcoes{
+    display: none;
+}
+
+/* div que vai aparecer ao clicar no botão de criar psta*/
+form#criar_pasta_form{
+    display: none;
+    width: 300px;
+    height: 250px;
+    border: 1px solid black;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+}
+
