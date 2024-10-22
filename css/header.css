@@ -10,6 +10,8 @@ header {
     justify-content:space-between;
     padding: 20px 10%;
     align-items: center;
+    position: relative; /* Para controlar o z-index */
+    z-index: 10;
 }
 
 
@@ -22,6 +24,7 @@ header {
     justify-content: center;
     align-items: center;
     border: none;
+    cursor: pointer;
 }
 
 .circle i {
@@ -31,7 +34,7 @@ header {
 
 .menuDropDown {
     background-color: var(--primary-color);
-    opacity: 0.8;
+    opacity: 0;
     width: fit-content;
     height: fit-content;
     padding: 25px 40px;
@@ -41,9 +44,18 @@ header {
     align-items: start;
     position: absolute;
     right: 45px;
-    display: none;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
 }
+
+.menuDropDown.show {
+    transform: translateY(0);
+    opacity: 0.8;
+    visibility: visible;
+  }
 
 .menuDropDown p {
     color: #fff;

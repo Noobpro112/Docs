@@ -22,7 +22,7 @@
         <div class="headerLogo">
             <a href="home.php"><img src="../../imgs/logo-branca-t.png" alt="Logo" width="80px"></a>
         </div>
-        <div class="DropDown" id="profile-icon">
+        <div class="DropDown" id="menu-icon">
             <button class="circle" onclick="toggleMenu()">
                 <i class="fa-solid fa-user"></i>
             </button>
@@ -184,24 +184,19 @@
         <!-- FIM DIv Mais Infos -->
     </main>
     <script>
-        // Função para exibir ou ocultar o menu dropdown
         function toggleMenu() {
-            var dropdown = document.getElementById('menuDropDown');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            const menu = document.getElementById('menuDropDown');
+            menu.classList.toggle('show');
         }
 
-        // Fecha o menu dropdown ao clicar fora do menu e do ícone
         window.onclick = function(event) {
-            var dropdown = document.getElementById('menuDropDown');
-            var profileIcon = document.getElementById('profile-icon');
-
-            // Se o clique for fora do dropdown e fora do ícone de perfil, fecha o menu
-            if (!dropdown.contains(event.target) && !profileIcon.contains(event.target)) {
-                if (dropdown.style.display === 'block') {
-                    dropdown.style.display = 'none';
-                }
+            const menu = document.getElementById('menuDropDown');
+            const icon = document.querySelector('.circle');
+            if (!menu.contains(event.target) && !icon.contains(event.target)) {
+                menu.classList.remove('show');
             }
         }
+
 
         function ShowFormInfo(button) { //Criar a função em JS que será chamada ao usuário clicar na seta - passamos como parâmetro justamente o botão por meio daquele comando THIS para assim podermos buscar pelo forms
             const form_infos = button.parentElement.nextElementSibling; //Criamos a varíavel que irá guardar o forms que queremos que apareça. Portanto, colocamos button.parentElement para buscar o elemento pai onde o botão está inserido, que no caso seria a div com class="Conteudo". Logo mais, nós adicionamos o parâmetro nextElementSibling, que irá buscar pelo elemento irmão (do lado) do div PAI do nosso botão, que no caso é justamente o forms, dess forma chegamos até o forms que queremos trocar o display para ele aparecer

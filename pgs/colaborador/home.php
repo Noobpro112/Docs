@@ -25,12 +25,12 @@
             <input type="text" id="" name="" placeholder="Pesquisa...">
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
-        <div class="DropDown" id="profile-icon">
+        <div class="DropDown" id="menu-icon">
             <button class="circle" onclick="toggleMenu()">
                 <i class="fa-solid fa-user"></i>
             </button>
         </div>
-        
+
     </header>
     <div class="menuDropDown" id="menuDropDown">
         <p>Colaborador Nome</p> <!--Puxar do banco de dados o nome do colaborador!!!!!-->
@@ -44,6 +44,22 @@
             <label>Logout</label>
         </a>
     </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menuDropDown');
+            menu.classList.toggle('show');
+        }
+
+        window.onclick = function(event) {
+            const menu = document.getElementById('menuDropDown');
+            const icon = document.querySelector('.circle');
+            if (!menu.contains(event.target) && !icon.contains(event.target)) {
+                menu.classList.remove('show'); 
+            }
+        }
+    </script>
+
 </body>
 
 </html>
