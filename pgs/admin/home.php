@@ -51,10 +51,11 @@
         <button id="close_button" type="button" onclick="close_criar_pasta();"> X </button> <!--Botão com um X para fechar o forms, dessa forma chamar a função em JS que troca o display do forms-->
         <h4>CRIAR PASTA</h4>
         <h6>Nome</h6>
+        <!--Seção onde fica o nome da pasta que o usuário irá digitar e também o local da resposta do servidor, que pesquisa pelo nome digitado no banco de dados-->
         <section id="NomePasta">
-            <input type="text" name="nome_pasta" id="nome_pasta" onkeyup="checarNomePasta();">
-            <i class="bi bi-exclamation-lg" id="exclamacao"></i>
-            <p id="resposta_check"></p>
+            <input type="text" name="nome_pasta" id="nome_pasta" onkeyup="checarNomePasta();" > <!--Função 'onkeyup' que chama o JS a cada vez que o usuário termina de digitar um tecla--> 
+            <i class="bi bi-exclamation-lg" id="exclamacao"></i> <!--Icone do ponto de exclamação-->
+            <p id="resposta_check"></p> <!--Parágrafo que vai receber a resposta do servidor-->
         </section>
         <h6>Adicionar documentos</h6>
         <select name="select_documents[]" id="select_documents" multiple> <!--Select Multiplo, onde o usuário irá escolher quais documentos ele quer que estejam naquela determinada pasta que está prestes a criar-->
@@ -76,7 +77,7 @@
         
         <!--Botão para enviar o forms-->
         <button type="submit"> 
-            <h6>Enviar</h6>
+            <h6>Criar</h6>
         </button>
     </form>
     <!--FIM do FORMS criar_pasta_form-->
@@ -114,15 +115,17 @@
 
         //Função para pesquisar para ver o nome da pasta já existe enquanto a pessoa digita
         function checarNomePasta(){
-            let nome_pasta = document.getElementById('nome_pasta').value;
-            let xhr = new XMLHttpRequest();
+            let nome_pasta = document.getElementById('nome_pasta').value; //Pega o valor digitado e quando em uma variável
+            let xhr = new XMLHttpRequest(); //Cria um objeto XMLHttpRequest, que é usado para interajir com o servidor
 
-            xhr.open('POST', '../../functions/checarNomePasta.php', true);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.open('POST', '../../functions/checarNomePasta.php', true); //Detalhes da requisição
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); //Seta o tipo das informações 
+            //Bloco IF/ELSE para verficar a resposta do servidor 
             xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
+                if (xhr.readyState === 4 && xhr.status === 200) { //se tudo ocorrer corretamente ele pega a resposta do servidor e armazena em uma variável
                     const response = xhr.responseText;
                     document.getElementById('resposta_check').innerHTML = response;
+                    //Bloco IF/ELSE para verficar qual foi a resposta e trocar o display do icone de exclamacao
                     if (response === 'Pasta existente') {
                         document.getElementById('exclamacao').style.display = 'block';
                     } else {
@@ -130,7 +133,7 @@
                     }
                 }
             };
-            xhr.send('nome_pasta=' + encodeURIComponent(nome_pasta));
+            xhr.send('nome_pasta=' + encodeURIComponent(nome_pasta)); //Enviando a requisição e também os dados que serão tratados no PHP
         }
     </script>
 </body>

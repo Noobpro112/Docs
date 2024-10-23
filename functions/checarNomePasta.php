@@ -7,7 +7,8 @@ if (isset($_POST['nome_pasta'])) {
     $excutePasta = $conexao -> query($SelecetNomePasta);
 
     if ($excutePasta -> num_rows > 0) {
-        echo "Pasta existente";
+        echo "Pasta existente"; //Caso for achado uma pasta já criada com aquele nome, então o servidor envia a resposta de que a pasta já existe
     } else {
+        //Caso contrário ele não envia nenhuma resposta
     }
 }

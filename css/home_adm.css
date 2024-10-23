@@ -59,7 +59,7 @@ section#NomePasta i#exclamacao{
     margin-left: 5px;
 }
 
-/* icone que contem um ponto de exclamacao*/
+/* Parágrafo da resposta do servidor*/
 section#NomePasta p#resposta_check{
     color: red;
     font-weight: bold; 
