@@ -13,7 +13,7 @@
     <link rel="icon" type="image/x-icon" href="../../imgs/favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"><!--Link para usar os icones da bootstrap-->
     <link rel="stylesheet" href="../../css/home_adm.css"><!--Link css da home do admin-->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> <!--Link do css para a parte Select Multiple, onde esse css está para mostrar como ficaria, mas pode ser trocado-->
 </head>
 <body>
     <h1>Selecione um Arquivo:</h1>
@@ -32,7 +32,7 @@
             <h4>Criar Pasta</h4>
         </button>
         <br>
-        <form method="post" action=../../functions/criar_documento.php>
+        <form method="post" action=../../functions/criar_documento.php> <!--Forms e botão para criar novo documento-->
             <button type="submit">
                 <h4>Novo Documento.</h4>
             </button>
@@ -40,7 +40,7 @@
     </div>
     <!--FIM da DIV opcoes-->
 
-    <!--Botão para criar nova pasta ou documento-->
+    <!--Botão para criar nova pasta ou documento que chama a function do JS para mostrar a div acima-->
     <button onclick="showPopUp();" id="plus_button">
         <i class="bi bi-plus"></i>
     </button>
@@ -48,12 +48,12 @@
 
     <!--Form que vai aparecer ao clicar no botão de criar pasta, onde o usuário vai poder criar pastas e adcionar documentos nela-->
     <form action="../../functions/criar_pasta.php" id="criar_pasta_form">
-        <button id="close_button" type="button" onclick="close_criar_pasta();"> X </button>
+        <button id="close_button" type="button" onclick="close_criar_pasta();"> X </button> <!--Botão com um X para fechar o forms, dessa forma chamar a função em JS que troca o display do forms-->
         <h4>CRIAR PASTA</h4>
         <h6>Nome</h6>
         <input type="text" name="nome_pasta">
         <h6>Adicionar documentos</h6>
-        <select name="select_documents[]" id="select_documents" multiple>
+        <select name="select_documents[]" id="select_documents" multiple> <!--Select Multiplo, onde o usuário irá escolher quais documentos ele quer que estejam naquela determinada pasta que está prestes a criar-->
             <?php
                 $SelectDocumentos = "SELECT * FROM documentos_pasta";
                 $executeView = $conexao -> query($SelectDocumentos);
@@ -69,36 +69,42 @@
                 }
             ?>
         </select>   
-        <button type="submit">
+        
+        <!--Botão para enviar o forms-->
+        <button type="submit"> 
             <h6>Enviar</h6>
         </button>
     </form>
-    <!--FIM da DIV criar_pasta_div-->
+    <!--FIM do FORMS criar_pasta_form-->
     <br>
     <br>
     <a href="cadastrar_colaborador.php">Cadastrar colaborador</a>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!--Scripts para chamar a biblioteca Jquery do JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> <!--Scripts para charmar a biblioteca Select2 do Jquery, que permite novas funcionalides à tag <select> -->
     <script>
+        //Function para trocar o display da div opcoes, onde o usuário poderá criar pastas ou criar documentos
         function showPopUp() {
-            let div_opcoes = document.getElementById('opcoes');
+            let div_opcoes = document.getElementById('opcoes'); 
             div_opcoes.style.display = (div_opcoes.style.display === 'none' || div_opcoes.style.display === '') ? 'block' : 'none';
         }
 
+        //Function para trocar o display do forms de criar pasta, onde o usuário poderá criar pastas
         function showCriarPasta() {
-            let form_criar_pasta = document.getElementById('criar_pasta_form');
+            let form_criar_pasta = document.getElementById('criar_pasta_form'); //Pegar o forms pelo Id e guardar em uma variável
             form_criar_pasta.style.display = (form_criar_pasta.style.display === 'none' || form_criar_pasta.style.display === '') ? 'block' : 'none';
         }
 
+        //Function para trocar o display do forms, mais especificamente escondelo usando o botão vermelho
         function close_criar_pasta(){
-            let form_criar_pasta = document.getElementById('criar_pasta_form');
-            form_criar_pasta.style.display = 'none';
+            let form_criar_pasta = document.getElementById('criar_pasta_form'); //Pegar o forms pelo Id e guardar em uma variável
+            form_criar_pasta.style.display = 'none'; //Trocar display para none, escondendo o forms
         }
 
-        $(document).ready(function() {
-            $('#select_documents').select2({
-                placeholder: "Selecionar documentos",
-                allowClear: true
+        $(document).ready(function() { //Garante que esse comando seja executado apenas depois da página estar completamente carregada
+            $('#select_documents').select2({ //Inicializa o select2 no <select> que possui id = select_documents
+                placeholder: "Selecionar documentos", //Adiciona placeholder à ele, pois teoricamente um select não tem placeholder
+                allowClear: true //Adciona o comando onde o select pode ser 'limpo', limpando as opções já selecionadas pelo usuário
             });
         });
     </script>
