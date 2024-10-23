@@ -66,7 +66,7 @@ section#NomePasta p#resposta_check{
 }
 
 
-/* Customize Select2 container */
+/* Este bloco seria um css para tentar direcionar a estilização do select multiple, que talvez seja um pouco complicada de fazer */
 .select2-container .select2-selection--multiple {
     background-color: #f0f0f0; /* Light grey background */
     border: 1px solid #ccc; /* Light grey border */
@@ -102,3 +102,4 @@ section#NomePasta p#resposta_check{
     background-color: #007bff; /* Blue background for highlighted option */
     color: white; /* White text for highlighted option */
 }
+/* Fim do bloco de estiliação do Select*/
