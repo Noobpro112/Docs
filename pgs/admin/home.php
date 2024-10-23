@@ -13,7 +13,7 @@
     <link rel="icon" type="image/x-icon" href="../../imgs/favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"><!--Link para usar os icones da bootstrap-->
     <link rel="stylesheet" href="../../css/home_adm.css"><!--Link css da home do admin-->
-    <!--<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> <!--Link do css para a parte Select Multiple, onde esse css está para mostrar como ficaria, mas pode ser trocado-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> <!--Link do css para a parte Select Multiple, onde esse css está para mostrar como ficaria, mas pode ser trocado-->
 </head>
 <body>
     <h1>Selecione um Arquivo:</h1>
@@ -47,7 +47,7 @@
     <!--FIM do Botão plus_button-->
 
     <!--Form que vai aparecer ao clicar no botão de criar pasta, onde o usuário vai poder criar pastas e adcionar documentos nela-->
-    <form action="../../functions/criar_pasta.php" id="criar_pasta_form">
+    <form action="../../functions/criar_pasta.php" id="criar_pasta_form" method="POST">
         <button id="close_button" type="button" onclick="close_criar_pasta();"> X </button> <!--Botão com um X para fechar o forms, dessa forma chamar a função em JS que troca o display do forms-->
         <h4>CRIAR PASTA</h4>
         <h6>Nome</h6>
@@ -61,7 +61,7 @@
                 if($executeView -> num_rows > 0){
                     while($rowView = $executeView -> fetch_assoc()){
                         ?>
-                        <option value="<?php echo $rowView['id'] ?>">
+                        <option value="<?php echo $rowView['id'] ?>"> <!--Colocar como opção todos os documentos que não estão em uma pasta ainda-->
                             <?php echo $rowView['titulo'] ?>
                         </option>
                         <?php
