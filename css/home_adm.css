@@ -47,6 +47,25 @@ button#close_button{
     cursor: pointer;
 }
 
+/* section que vai mostrar a resposta do servidor dizendo se o nome já existe ou não*/
+section#NomePasta{
+    display: flex;
+}
+
+/* icone que contem um ponto de exclamacao*/
+section#NomePasta i#exclamacao{
+    display: none;
+    color: red;
+    margin-left: 5px;
+}
+
+/* icone que contem um ponto de exclamacao*/
+section#NomePasta p#resposta_check{
+    color: red;
+    font-weight: bold; 
+}
+
+
 /* Customize Select2 container */
 .select2-container .select2-selection--multiple {
     background-color: #f0f0f0; /* Light grey background */
