@@ -47,7 +47,26 @@ button#close_button{
     cursor: pointer;
 }
 
-/* Customize Select2 container */
+/* section que vai mostrar a resposta do servidor dizendo se o nome já existe ou não*/
+section#NomePasta{
+    display: flex;
+}
+
+/* icone que contem um ponto de exclamacao*/
+section#NomePasta i#exclamacao{
+    display: none;
+    color: red;
+    margin-left: 5px;
+}
+
+/* Parágrafo da resposta do servidor*/
+section#NomePasta p#resposta_check{
+    color: red;
+    font-weight: bold; 
+}
+
+
+/* Este bloco seria um css para tentar direcionar a estilização do select multiple, que talvez seja um pouco complicada de fazer */
 .select2-container .select2-selection--multiple {
     background-color: #f0f0f0; /* Light grey background */
     border: 1px solid #ccc; /* Light grey border */
@@ -83,3 +102,4 @@ button#close_button{
     background-color: #007bff; /* Blue background for highlighted option */
     color: white; /* White text for highlighted option */
 }
+/* Fim do bloco de estiliação do Select*/
