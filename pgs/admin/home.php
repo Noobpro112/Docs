@@ -51,7 +51,11 @@
         <button id="close_button" type="button" onclick="close_criar_pasta();"> X </button> <!--Botão com um X para fechar o forms, dessa forma chamar a função em JS que troca o display do forms-->
         <h4>CRIAR PASTA</h4>
         <h6>Nome</h6>
-        <input type="text" name="nome_pasta">
+        <section id="NomePasta">
+            <input type="text" name="nome_pasta" id="nome_pasta" onkeyup="checarNomePasta();">
+            <i class="bi bi-exclamation-lg" id="exclamacao"></i>
+            <p id="resposta_check"></p>
+        </section>
         <h6>Adicionar documentos</h6>
         <select name="select_documents[]" id="select_documents" multiple> <!--Select Multiplo, onde o usuário irá escolher quais documentos ele quer que estejam naquela determinada pasta que está prestes a criar-->
             <?php
@@ -107,6 +111,27 @@
                 allowClear: true //Adciona o comando onde o select pode ser 'limpo', limpando as opções já selecionadas pelo usuário
             });
         });
+
+         //Função para pesquisar para ver o nome da pasta já existe enquanto a pessoa digita
+         function checarNomePasta(){
+            let nome_pasta = document.getElementById('nome_pasta').value;
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('POST', '../../functions/checarNomePasta.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const response = xhr.responseText;
+                    document.getElementById('resposta_check').innerHTML = response;
+                    if (response === 'Pasta existente') {
+                        document.getElementById('exclamacao').style.display = 'block';
+                    } else {
+                        document.getElementById('exclamacao').style.display = 'none';
+                    }
+                }
+            };
+            xhr.send('nome_pasta=' + encodeURIComponent(nome_pasta));
+        }
     </script>
 </body>
 </html>
