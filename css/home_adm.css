@@ -1,0 +1,105 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Botão de '+' que vai fazer aparecer outras divs*/
+button#plus_button{
+    cursor: pointer;
+    width: 50px;
+    height: 20px;
+    color: white;
+    background-color: black;
+}
+
+/* div que vai aparecer ao clicar no botão de mais, onde irão aparecer as opções de criar pasta e de criar documentos*/
+div#opcoes{
+    display: none;
+}
+
+/* div que vai aparecer ao clicar no botão de criar psta*/
+form#criar_pasta_form{
+    display: none;
+    width: 500px;
+    height: 250px;
+    border: 1px solid black;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(+50%, -50%);
+}
+
+
+/* botão para fechar a div de criar pasta*/
+button#close_button{
+    color: white;
+    background-color: red;
+    width: 20px;
+    border: 0px;
+    cursor: pointer;
+}
+
+/* section que vai mostrar a resposta do servidor dizendo se o nome já existe ou não*/
+section#NomePasta{
+    display: flex;
+}
+
+/* icone que contem um ponto de exclamacao*/
+section#NomePasta i#exclamacao{
+    display: none;
+    color: red;
+    margin-left: 5px;
+}
+
+/* Parágrafo da resposta do servidor*/
+section#NomePasta p#resposta_check{
+    color: red;
+    font-weight: bold; 
+}
+
+
+/* Este bloco seria um css para tentar direcionar a estilização do select multiple, que talvez seja um pouco complicada de fazer */
+.select2-container .select2-selection--multiple {
+    background-color: #f0f0f0; /* Light grey background */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 5px; /* Padding */
+    min-height: 38px; /* Minimum height */
+}
+
+/* Customize Select2 items (selected items) */
+.select2-container .select2-selection__choice {
+    background-color: #007bff; /* Blue background for selected items */
+    color: white; /* White text for selected items */
+    border: 1px solid #0062cc; /* Darker blue border */
+    padding: 3px; /* Padding */
+    border-radius: 3px; /* Rounded corners */
+    margin: 3px; /* Margin between items */
+}
+
+/* Customize the placeholder text */
+.select2-container .select2-selection__placeholder {
+    color: #666; /* Grey text */
+    font-style: italic; /* Italic text */
+}
+
+/* Customize the dropdown (options list) */
+.select2-container .select2-results__option {
+    background-color: white; /* White background for options */
+    color: #333; /* Dark grey text */
+    padding: 5px; /* Padding */
+}
+
+.select2-container .select2-results__option--highlighted {
+    background-color: #007bff; /* Blue background for highlighted option */
+    color: white; /* White text for highlighted option */
+}
+/* Fim do bloco de estiliação do Select*/

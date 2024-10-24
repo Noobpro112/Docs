@@ -88,7 +88,27 @@ while ($row = mysqli_fetch_assoc($resultado)) {
         #font-size-display {
             margin: 0 10px;
         }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #editor, #editor * {
+                visibility: visible;
+            }
+
+            #editor {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: 20px;
+                font-size: <?php echo $tamanho_fonte; ?>px;
+            }
+        }
     </style>
+
 </head>
 <body>
 <div class="container"> <!-- Botões -->
@@ -119,6 +139,7 @@ while ($row = mysqli_fetch_assoc($resultado)) {
             <button type="button">Voltar</button>
         </a>
         <button type="button" onclick="triggerImageUpload()">Inserir Imagem</button>
+        <button type="button" onclick="printEditorContent()">Imprimir PDF</button>
         <input type="file" id="imageUpload" style="display: none;" accept="image/*">
         <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
         <!-- não mexe nessa porra não, vou deixar aqui quietinho e deixa ele ae escondidinho. no maximo troca ele de lugar no html mas ele tem que estar no código-->
@@ -135,6 +156,11 @@ while ($row = mysqli_fetch_assoc($resultado)) {
     document.getElementById("Titulo").addEventListener("input", Salva_Conteudo);
     document.getElementById("editor").addEventListener("input", Salva_Conteudo);
     setInterval(Salva_Conteudo, 2000);
+
+    function printEditorContent() {
+        window.print();
+    }
+
 </script>
 </body>
 </html>
