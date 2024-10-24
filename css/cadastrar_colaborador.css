@@ -4,3 +4,127 @@
     padding: 0px;
     box-sizing: border-box;
 }
+
+:root {
+    --primary-color: #121820;
+    --second-color: #ababab;
+    --primary-font: "Montserrat", sans-serif;
+}
+
+main {
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+     padding: 90px 13% 0px 13%;
+}
+
+.section1 {
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.section1 form {
+    border: 1px solid var(--second-color);
+    border-radius: 4px;
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.section1 form input.inputsCadastrar {
+    border: none;
+    border-bottom: 1px solid #ababab;
+    margin: 10px 0px;
+    font-family: var(--primary-font);
+    font-size: 14px;
+    width: 240px;
+    padding: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 0px 1000px #fff inset;
+}
+
+.section1 form input.buttonCadastrar {
+    border: none !important;
+    margin: 0px;
+    font-family: var(--primary-font);
+    font-size: 18px;
+    width: min-content;
+    padding: 10px 30px;
+    border-radius: 30px;
+    background-color: var(--primary-color) !important;
+    color: #fff;
+    margin-top: 15px;
+    align-self: center;
+    font-weight: 700;
+}
+
+.section1 form input.buttonCadastrar:hover {
+    transform: scale(1.05);
+}
+
+.section1 form .tipoUsuarioLinha {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.section1 form .tipoUsuarioLinha p {
+    color: #767676;
+    font-family: var(--primary-font);
+    font-weight: 500;
+    font-size: 14px;
+    margin-right: 6px;
+}
+
+.section1 form .tipoUsuarioLinha select {
+    border: 1px solid var(--second-color);
+    font-family: var(--primary-font);
+    font-size: 13px;
+    color: var(--primary-color);
+    font-weight: 500;
+    padding: 5px 0px;
+}
+
+.section2 {
+    flex:3;
+    padding-left: 40px;
+}
+
+.section2 .BarraPesquisa {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid var(--second-color);
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.section2 .BarraPesquisa input {
+    border: none;
+    padding: 1px 10px;
+    font-family: var(--primary-font);
+    color: #767676;
+    font-size: 15px;
+    width: -webkit-fill-available;
+}
+
+.section2 .BarraPesquisa input:focus-visible {
+    border: none;
+    outline: 0;
+}
+
+.section2 .BarraPesquisa .LupaPesquisa {
+    border-right: 1.5px solid var(--second-color);
+    padding-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section2 .BarraPesquisa .LupaPesquisa i {
+    font-size: 20px;
+    color: var(--second-color);
+}
