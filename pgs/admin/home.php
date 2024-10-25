@@ -47,7 +47,7 @@
     <!--FIM do Botão plus_button-->
 
     <!--Form que vai aparecer ao clicar no botão de criar pasta, onde o usuário vai poder criar pastas e adcionar documentos nela-->
-    <form action="../../functions/criar_pasta.php" id="criar_pasta_form">
+    <form action="../../functions/criar_pasta.php" id="criar_pasta_form" method="POST">
         <button id="close_button" type="button" onclick="close_criar_pasta();"> X </button> <!--Botão com um X para fechar o forms, dessa forma chamar a função em JS que troca o display do forms-->
         <h4>CRIAR PASTA</h4>
         <h6>Nome</h6>
@@ -112,17 +112,19 @@
             });
         });
 
-         //Função para pesquisar para ver o nome da pasta já existe enquanto a pessoa digita
-         function checarNomePasta(){
-            let nome_pasta = document.getElementById('nome_pasta').value;
-            let xhr = new XMLHttpRequest();
+        //Função para pesquisar para ver o nome da pasta já existe enquanto a pessoa digita
+        function checarNomePasta(){
+            let nome_pasta = document.getElementById('nome_pasta').value; //Pega o valor digitado e quando em uma variável
+            let xhr = new XMLHttpRequest(); //Cria um objeto XMLHttpRequest, que é usado para interajir com o servidor
 
-            xhr.open('POST', '../../functions/checarNomePasta.php', true);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.open('POST', '../../functions/checarNomePasta.php', true); //Detalhes da requisição
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); //Seta o tipo das informações 
+            //Bloco IF/ELSE para verficar a resposta do servidor 
             xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
+                if (xhr.readyState === 4 && xhr.status === 200) { //se tudo ocorrer corretamente ele pega a resposta do servidor e armazena em uma variável
                     const response = xhr.responseText;
                     document.getElementById('resposta_check').innerHTML = response;
+                    //Bloco IF/ELSE para verficar qual foi a resposta e trocar o display do icone de exclamacao
                     if (response === 'Pasta existente') {
                         document.getElementById('exclamacao').style.display = 'block';
                     } else {
@@ -130,7 +132,7 @@
                     }
                 }
             };
-            xhr.send('nome_pasta=' + encodeURIComponent(nome_pasta));
+            xhr.send('nome_pasta=' + encodeURIComponent(nome_pasta)); //Enviando a requisição e também os dados que serão tratados no PHP
         }
     </script>
 </body>
