@@ -10,13 +10,15 @@
         $email = $conexao -> real_escape_string($_POST['email']);
         $senha = $conexao -> real_escape_string($_POST['senha']);
 
+        $senha_hash = hash('sha256', $senha);
+
         //Query para verificar se o usuário existe
-        $SelectUsuario = "SELECT * FROM tb_usuario WHERE usuario_email = '$email' AND usuario_senha = '$senha' AND usuario_ativo = 1";
+        $SelectUsuario = "SELECT * FROM tb_usuario WHERE usuario_email = '$email' AND usuario_senha = '$senha_hash' AND usuario_ativo = 1";
         $executeSelect = $conexao -> query($SelectUsuario); // Executar consulta
 
         if($executeSelect && $executeSelect -> num_rows > 0){ // Verificar se a cinsulta deu certo e se recebeu alguma linha
             $rowUsuario = $executeSelect -> fetch_assoc(); //Salvando as informações do usuário
-
+            
             //Criando Sessão do usuário e salvar seus dados
             $_SESSION['usuario_id'] = $rowUsuario['id_usuario'];
             $_SESSION['usuario_nome'] = $rowUsuario['usuario_nome'];
@@ -52,12 +54,12 @@
                 }
             }else{ //Caso não foi achado o email, então precisamos verficar se a senha está correta ou não também
 
-                    $SelectSenha = "SELECT * FROM tb_usuario WHERE usuario_senha = '$senha'"; //Buscamos pela senha para ver se pelo menos a pessoa digitou a senha correta
+                    $SelectSenha = "SELECT * FROM tb_usuario WHERE usuario_senha = '$senha_hash'"; //Buscamos pela senha para ver se pelo menos a pessoa digitou a senha correta
                     $executeSenha = $conexao -> query($SelectSenha); //Executando o SelectSenha
 
                     if($executeSenha && $executeSenha -> num_rows > 0){ //Se encontrou tal senha, precisamos conferir primeiro se aquela conta está ativa
 
-                        $SelectSenhaAtivo = "SELECT * FROM tb_usuario WHERE usuario_senha= '$senha' AND usuario_ativo = 0"; //Buscamos pela senha e pelo usuario ativo, uma vez que já sabemos que a senha existe na database, só precisamos saber se o user está ativo ou não
+                        $SelectSenhaAtivo = "SELECT * FROM tb_usuario WHERE usuario_senha= '$senha_hash' AND usuario_ativo = 0"; //Buscamos pela senha e pelo usuario ativo, uma vez que já sabemos que a senha existe na database, só precisamos saber se o user está ativo ou não
                         $executeSenhaAtivo = $conexao -> query($SelectSenhaAtivo); //Executando o SelectSenhaAtivo
 
                         if($executeSenhaAtivo && $executeSenhaAtivo -> num_rows > 0){ //Se encontrou algum usuário assim, quer dizer que ele está com a conta inativa
