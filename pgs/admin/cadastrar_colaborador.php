@@ -82,7 +82,7 @@
                         <!--Codigo do fontawesome da lupa de pesquisa-->
                         <i class="bi bi-search"></i>
                     </figure>
-                    <input type="text" name="NomePesquisa" placeholder="Buscar"> <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
+                    <input type="text" name="NomePesquisa" placeholder="Buscar" > <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
                 </div>
 
                 <!--Bloco PHP para verficar as repostas de erro do servidor-->
@@ -146,7 +146,7 @@
                                 <!-- Segunda Section (Senha)- H4 da Senha, input da Email, botão de salvar e botão de delete -->
                                 <section class="sections_infos" id="section_senha">
                                     <h4>Senha:</h4>
-                                    <input type="password" name="senha_usuario" value="<?php echo $row['usuario_senha'] ?>">
+                                    <input type="password" name="senha_usuario" value="" placeholder="Troque a senha aqui">
                                     <input type="submit" value="SALVAR">
                             </form>
                             <!-- FIM Forms-->
