@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 23/10/2024 às 02:24
+-- Tempo de geração: 05/11/2024 às 23:18
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -28,22 +28,16 @@ DELIMITER $$
 -- Procedimentos
 --
 DROP PROCEDURE IF EXISTS `cadastrar_usuario`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_usuario` (IN `nome_usuario` VARCHAR(255), IN `email_usuario` VARCHAR(255), IN `senha_usuario` VARCHAR(255), IN `tipo_usuario` ENUM('ADM','COLLAB'), IN `data_entrada` DATETIME, OUT `Confirmacao` BOOLEAN)   BEGIN
-    -- Declarar uma variável local e temporária durante o processamento dessa procedure
-    DECLARE rows_count INT;
-
--- Procurar na tabela usuários para ver se o email digitado já está sendo usado
-    SELECT COUNT(*) INTO rows_count FROM tb_usuario WHERE usuario_email = email_usuario AND usuario_ativo = 1;
-
--- Bloco IF para caso o Email já esteja sendo usado || Bloco ELSE para Inserir usuário
-    IF rows_count > 0 THEN
-        SET Confirmacao = FALSE;
-    ELSE
-        INSERT INTO tb_usuario (usuario_nome, usuario_email, usuario_senha, usuario_tipo, usuario_data_entrada,
-                                usuario_ativo)
-        VALUES (nome_usuario, email_usuario, senha_usuario, tipo_usuario, data_entrada, 1);
-        SET Confirmacao = TRUE;
-    END IF;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_usuario` (IN `usuario_nome` VARCHAR(255), IN `usuarios_email` VARCHAR(255), IN `usuario_senha` VARCHAR(255), IN `usuario_data_entrada` DATETIME, OUT `confirmacao` BOOLEAN, IN `tipo_usuario` ENUM('ADM','COLLAB'))   BEGIN 
+	DECLARE rows_count INT;
+    
+	SELECT COUNT(*) INTO rows_count FROM tb_usuario WHERE usuario_email = usuarios_email; 
+IF rows_count > 0 THEN 
+	SET confirmacao = FALSE; 
+ELSE 
+    INSERT INTO tb_usuario (usuario_nome, usuario_email, usuario_senha, usuario_tipo, usuario_data_entrada, usuario_ativo) VALUES (usuario_nome, usuarios_email, usuario_senha, 'COLLAB', usuario_data_entrada, 		1); 
+    SET confirmacao = TRUE; 
+END IF; 
 END$$
 
 DELIMITER ;
@@ -71,14 +65,14 @@ CREATE TABLE `documentos` (
 --
 
 INSERT INTO `documentos` (`id`, `titulo`, `conteudo`, `data_criacao`, `data_modificacao`, `ID_Usuario`, `tamanho_fonte`, `id_pasta`) VALUES
-(1, 'ronaldinho', '\n        \n        <i style=\"\"><b>TESTE</b><br><br><br><b style=\"\">JanuARIO <strike>MEU</strike> AMIG</b><u>O</u></i>        ', '2024-10-12 05:17:11', '2024-10-16 07:58:36', 1, 14, 0),
+(1, 'ronaldinho', '\n        \n        <i style=\"\"><b>TESTE</b><br><br><br><b style=\"\">JanuARIO <strike>MEU</strike> AMIG</b><u>O</u></i>        ', '2024-10-12 05:17:11', '2024-10-24 21:00:10', 1, 14, 5),
 (2, 'yan', '\n        <div style=\"text-align: center;\">teste</div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\">teste</div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><br></div>    ', '2024-10-12 09:05:42', '2024-10-16 07:58:26', 1, 16, 0),
 (5, 'Documento Sem Titulo', '\n        \n        <font color=\"#ff0000\">\n        Digite Aqui...    </font>        ', '2024-10-14 14:12:52', '2024-10-16 07:58:46', 1, 14, 0),
 (3, 'Documento Sem Titulo', '\n        Digite Aqui...    ', '2024-10-12 09:06:52', '2024-10-16 07:58:45', 1, 14, 0),
 (4, 'Documento Sem Titulo', '\n        \n        \n        \n        Digite&nbsp;            ', '2024-10-14 14:02:03', '2024-10-16 07:58:44', 1, 14, 0),
 (10, 'Documento Sem Titulo', 'Digite Aqui...', '2024-10-22 20:37:40', '2024-10-22 20:37:40', 1, 14, NULL),
 (9, 'Documento Sem Titulo', 'Digite Aqui...', '2024-10-22 20:19:12', '2024-10-22 20:19:12', 1, 14, NULL),
-(8, 'adsadasd', '\n        adasdasdasdasdas<div><br></div>', '2024-10-22 18:32:48', '2024-10-22 18:33:11', 1, 14, NULL),
+(8, 'adsadasd', '\n        adasdasdasdasdas<div><br></div>', '2024-10-22 18:32:48', '2024-10-23 19:55:45', 1, 14, 4),
 (11, 'Documento Sem Titulo', 'Digite Aqui...', '2024-10-22 21:05:17', '2024-10-22 21:05:17', 1, 14, NULL);
 
 -- --------------------------------------------------------
@@ -112,6 +106,14 @@ CREATE TABLE `tb_pasta` (
   `pasta_data_criacao` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Despejando dados para a tabela `tb_pasta`
+--
+
+INSERT INTO `tb_pasta` (`id_pasta`, `pasta_nome`, `pasta_data_criacao`) VALUES
+(4, 'Mercado Financeiro', '2024-10-23'),
+(5, 'Mercado Financeir', '2024-10-24');
+
 -- --------------------------------------------------------
 
 --
@@ -134,10 +136,9 @@ CREATE TABLE `tb_usuario` (
 --
 
 INSERT INTO `tb_usuario` (`id_usuario`, `usuario_nome`, `usuario_email`, `usuario_senha`, `usuario_tipo`, `usuario_data_entrada`, `usuario_ativo`) VALUES
-(1, 'Kauan', 'kauan@gmail.com', 'kauan_007', 'ADM', '2024-10-08 17:30:00', 1),
-(2, 'Matheus', 'matheus@gmail.com', '1234', 'COLLAB', '2024-10-14 13:50:11', 1),
-(3, 'Ronaldo', 'ronaldo@gmail.com', 'sdasda', 'ADM', '2024-10-22 21:23:55', 0),
-(4, 'Carlos', 'ronaldo@gmail.com', 'sdadsad', 'ADM', '2024-10-22 21:24:05', 0);
+(1, 'Kauan', 'kauan@gmail.com', '8007c68d8718fa840f80bfe69792dd72cfe5534e538c1dda36b6d073cf68122c', 'ADM', '2024-10-08 17:30:00', 1),
+(2, 'Matheus', 'matheus@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'COLLAB', '2024-10-14 13:50:11', 1),
+(7, 'Julia', 'julia@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'COLLAB', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -234,13 +235,13 @@ ALTER TABLE `documentos`
 -- AUTO_INCREMENT de tabela `tb_pasta`
 --
 ALTER TABLE `tb_pasta`
-  MODIFY `id_pasta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pasta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `usuario_documento`

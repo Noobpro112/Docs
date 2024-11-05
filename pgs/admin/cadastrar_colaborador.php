@@ -82,7 +82,7 @@
                         <!--Codigo do fontawesome da lupa de pesquisa-->
                         <i class="bi bi-search"></i>
                     </figure>
-                    <input type="text" name="NomePesquisa" placeholder="Buscar" > <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
+                    <input type="search" name="NomePesquisa" placeholder="Buscar" > <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
                 </div>
 
                 <!--Bloco PHP para verficar as repostas de erro do servidor-->
