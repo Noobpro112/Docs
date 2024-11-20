@@ -26,6 +26,20 @@
     ?>
     <br>
 
+    <!--Botão para usuário acessar os filtros de pesquisa-->
+    <button id="button_filtro">
+        <i class="bi bi-funnel"></i>
+    </button>
+    <!--FIM do Botão button_filtro-->
+
+    <!--Div que vai aparecer quando o usuario clicar no icone de filtrar-->
+    <div id="filtros">
+        <form action="../../functions/pesquisa_filtro" method="POST">
+
+        </form>
+    </div>
+    <!--FIM da DIV filtro -->
+
     <!--Div que vai aparecer ao clicar no +-->
     <div id="opcoes">
         <button onclick="showCriarPasta();" id="criar_pasta_button"> <!--Botão para criar uma nova pasta-->

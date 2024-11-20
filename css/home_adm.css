@@ -65,6 +65,18 @@ section#NomePasta p#resposta_check{
     font-weight: bold; 
 }
 
+/* Botão para usuário acessar os filtros de pesquisa */
+button#button_filtro{
+    width: 50px;
+    height: 50px;
+    background-color: black;
+}
+
+button#button_filtro i{
+    font-size: 30px;
+    color: white;
+}
+
 
 /* Este bloco seria um css para tentar direcionar a estilização do select multiple, que talvez seja um pouco complicada de fazer */
 .select2-container .select2-selection--multiple {
