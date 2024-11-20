@@ -23,6 +23,21 @@
         <div class="boxLogin">
             <!-- Forms do login -->
             <form action="functions/login.php" method="POST">
+                
+                <div class="boxLogin-Title">
+                    <h2>Login</h2>
+                </div>
+                <div class="boxLogin-input inputEmail">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="email" name="email" placeholder="Email">
+                    <!-- Input do Email -->
+                </div>
+                <div class="boxLogin-input inputSenha">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="senha" placeholder="Senha" id="senha">
+                    <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
+                    <!-- Input da Senha -->
+                </div>
                 <!-- php para tratar se o erro foi na senha, email ou ambos -->
                 <?php
                 if (isset($_GET['status']) && ($_GET['status'] == 'emailfailed')) {
@@ -41,20 +56,6 @@
                     //Else para não acontecer nada caso não tenha nenhum erro no login
                 }
                 ?>
-                <div class="boxLogin-Title">
-                    <h2>Login</h2>
-                </div>
-                <div class="boxLogin-input inputEmail">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="email" name="email" placeholder="Email">
-                    <!-- Input do Email -->
-                </div>
-                <div class="boxLogin-input inputSenha">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" name="senha" placeholder="Senha" id="senha">
-                    <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
-                    <!-- Input da Senha -->
-                </div>
                 <div class="boxLogin-button">
                     <input type="submit" value="Entrar"> <!-- Input para enviar informações -->
                 </div>

@@ -61,6 +61,7 @@ main {
     font-weight: 700;
 }
 
+
 .section1 form input.buttonCadastrar:hover {
     transform: scale(1.05);
 }
@@ -98,7 +99,6 @@ main {
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid var(--second-color);
-    margin-bottom: 20px;
     padding: 5px;
 }
 
@@ -127,4 +127,156 @@ main {
 .section2 .BarraPesquisa .LupaPesquisa i {
     font-size: 20px;
     color: var(--second-color);
+}
+
+.CadastrosBox {
+    width: auto;
+}
+
+.CadastrosBox .item {
+    width: auto;
+    border-bottom: 1px solid var(--second-color);
+}
+
+.CadastrosBox .item .item-titulo {
+    width: auto;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.CadastrosBox .item .item-titulo .FotoPerfil {
+    flex: 1;
+    text-align: center;
+}
+
+.CadastrosBox .item .item-titulo .FotoPerfil i {
+    font-size: 45px;
+    color: var(--primary-color);
+}
+
+.CadastrosBox .item .item-titulo .InfoPrincipal {
+    display: flex;
+    flex: 8;
+    padding: 0px 5px 0px 15px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.CadastrosBox .item .item-titulo .InfoPrincipal h4 {
+    font-family: var(--primary-font);
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+.CadastrosBox .item .item-titulo button {
+    flex:1;
+    border: none;
+    background-color: #fff;
+    font-size: 21px;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+.CadastrosBox .item .Form_show_infos {
+    display: none;
+    padding: 0px 10px 20px 10px;
+    flex-direction: column;
+}
+
+
+.CadastrosBox .item .Form_show_infos .sections_infos #salvar {
+    border: none;
+    background-color: var(--primary-color);
+    padding: 5px 20px;
+    color: #fff;
+    font-family: var(--primary-font);
+    font-size: 15px;
+    border-radius: 30px;
+    font-weight: 600;
+    position: absolute;
+    bottom: 0px;
+    right: 60px;
+}
+
+.CadastrosBox .item .Form_show_infos .sections_infos #salvar:hover {
+    transform: scale(1.05);
+}
+
+.delete_button {
+    padding: 0px;
+    border: none;
+    background-color: #fff;
+    color:var(--primary-color);
+    font-size: 20px;
+}
+
+.delete_button:hover {
+    transform: scale(1.05);
+}
+
+.linha01{
+    width: auto;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+
+}
+
+.linha02 {
+    display: flex; /* Adiciona o layout flexível */
+    align-items: center;
+    position: relative;
+    padding-right: 20px;
+    width: -webkit-fill-available;
+}
+
+.linha02 .formDeletar {
+    width: 25px;
+    position: absolute;
+    bottom: 0px;
+    right: 15px;
+    text-align: center;
+}
+
+.CadastrosBox .item .Form_show_infos .sections_infos {
+    width: -webkit-fill-available ;
+    display: flex;
+}
+
+.linha01 label, .linha02 label {
+    font-family: var(--primary-font);
+    color: var(--primary-color);
+    font-size: 15px;
+}
+
+.labelAlinhamento {
+    width:50px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.inputInformacoes01, .inputInformacoes02 {
+    border: none;
+    background-color: #fff;
+    padding: 4px 10px;
+    font-size: 15px;
+    font-family: var(--primary-font);
+    border-bottom: 1px solid var(--second-color);
+}
+
+.inputInformacoes01 {
+    width: 370px;
+}
+
+
+.inputInformacoes02 {
+    width: 200px;
+}
+
+
+input#senha.inputsCadastrar {
+    width: 210px;
 }

@@ -59,7 +59,8 @@
 
                 <input class="inputsCadastrar" type="text" name="nome" placeholder="Nome"> <!--Input para inserir nome-->
                 <input class="inputsCadastrar" type="email" name="email" placeholder="Email"> <!--Input para inserir email-->
-                <input class="inputsCadastrar" type="password" name="senha" placeholder="Senha"> <!--Input para inserir senha-->
+                <input class="inputsCadastrar" type="password" name="senha" placeholder="Senha" id="senha"> <!--Input para inserir senha-->
+                <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
                 <div class="tipoUsuarioLinha">
                     <p>Tipo do usuário:</p> <!--H5 para a senha-->
                     <select name="tipo_usuario" id="tipo_usuario"> <!--Select para escolher o tipo de usuário que queira cadastrar-->
@@ -82,7 +83,7 @@
                         <!--Codigo do fontawesome da lupa de pesquisa-->
                         <i class="bi bi-search"></i>
                     </figure>
-                    <input type="search" name="NomePesquisa" placeholder="Buscar" > <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
+                    <input type="search" name="NomePesquisa" placeholder="Buscar"> <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
                 </div>
 
                 <!--Bloco PHP para verficar as repostas de erro do servidor-->
@@ -112,58 +113,68 @@
                     if ($executeSelectUsuario && $executeSelectUsuario->num_rows > 0) {
                         while ($row = $executeSelectUsuario->fetch_assoc()) {
                     ?>
-                            <!-- Inicio Div Conteudo - Div para mostrar o nome e tipo do usuário além da setinha para acessar mais informações-->
-                            <div class="Conteudo">
-                                <!-- Local onde ficará a forto de perfil do usuário (figure) -->
-                                <figure class="FotoPerfil">
-                                    <!--Codigo do bootstrap da foto perfil, so para padrão, depois irei adicionar a foto real que a pessoa inseriu-->
-                                    <i class="bi bi-person-circle"></i>
-                                </figure>
-                                <div class="InfoPrincipal">
-                                    <h4> <?php echo $row['usuario_nome'] ?></h4> <!-- H4 onde ficarão os nomes dos colaboradores-->
-                                    <!-- Local onde ficará a setinha apontada para baixo, onde o admin pode ver outras informações do colaborador (figure) -->
-                                    <h4> <?php echo $row['usuario_tipo'] ?> </h4>
+                            <div class="item">
+                                <!-- Inicio Div item-titulo - Div para mostrar o nome e tipo do usuário além da setinha para acessar mais informações-->
+                                <div class="item-titulo">
+                                    <!-- Local onde ficará a forto de perfil do usuário (figure) -->
+                                    <figure class="FotoPerfil">
+                                        <!--Codigo do bootstrap da foto perfil, so para padrão, depois irei adicionar a foto real que a pessoa inseriu-->
+                                        <i class="bi bi-person-circle"></i>
+                                    </figure>
+                                    <div class="InfoPrincipal">
+                                        <h4><?php echo $row['usuario_nome'] ?></h4> <!-- H4 onde ficarão os nomes dos colaboradores-->
+                                        <!-- Local onde ficará a setinha apontada para baixo, onde o admin pode ver outras informações do colaborador (figure) -->
+                                        <h4><?php echo $row['usuario_tipo'] ?></h4>
+                                    </div>
+                                    <!--Button para chamar a função onclick para mostrar o forms abaixo com as informações e também para o adm poder trocar caso ele queira-->
+                                    <button id="setinha_button" onclick="ShowFormInfo(this);"> <!-- Goi passado o parâmetro THIS na função para o JS identificar onde está o botão que foi clicado, tipo o botão manda um sinal "Hey, Eu estou aqui para o JS" -->
+                                        <figure class="SetinhaBaixo">
+                                            <!--Codigo do fontawesome da seta para baixo-->
+                                            <i class="fa-solid fa-angle-down"></i>
+                                        </figure>
+                                    </button>
                                 </div>
-                                <!--Button para chamar a função onclick para mostrar o forms abaixo com as informações e também para o adm poder trocar caso ele queira-->
-                                <button id="setinha_button" onclick="ShowFormInfo(this);"> <!-- Goi passado o parâmetro THIS na função para o JS identificar onde está o botão que foi clicado, tipo o botão manda um sinal "Hey, Eu estou aqui para o JS" -->
-                                    <figure class="SetinhaBaixo">
-                                        <!--Codigo do bootstrap da seta para baixo-->
-                                        <i class="bi bi-arrow-down-short"></i>
-                                    </figure>
-                                </button>
-                            </div>
-                            <!-- FIM Div Conteudo -->
+                                <!-- FIM Div item-titulo -->
 
-                            <!-- Forms onde vão aparecer o email e a senha do usuário, podendo ser alteradas pelo próprio ADM, além disso ele vai poder excluir o usuário também -->
-                            <form action="../../functions/update_infos.php" method="POST" class="Form_show_infos">
-                                <!-- Primeira Section (EMAIL)- H4 do Email e input do Email -->
-                                <section class="sections_infos" id="section_email">
-                                    <h4>Email:</h4>
-                                    <input type="email" name="email_usuario" placeholder="<?php echo $row['usuario_email'] ?>">
-                                    <input type="hidden" name="id_usuario" value="<?php echo $row['id_usuario'] ?>"> <!-- input escondido para levar o valor do id do usuario -->
-                                </section>
-                                <!-- FIM Section EMAIL -->
-                                <!-- Segunda Section (Senha)- H4 da Senha, input da Email, botão de salvar e botão de delete -->
-                                <section class="sections_infos" id="section_senha">
-                                    <h4>Senha:</h4>
-                                    <input type="password" name="senha_usuario" value="" placeholder="Troque a senha aqui">
-                                    <input type="submit" value="SALVAR">
-                            </form>
-                            <!-- FIM Forms-->
+                                <!-- Forms onde vão aparecer o email e a senha do usuário, podendo ser alteradas pelo próprio ADM, além disso ele vai poder excluir o usuário também -->
+                                <form action="../../functions/update_infos.php" method="POST" class="Form_show_infos">
+                                    <!-- Primeira Section (EMAIL)- H4 do Email e input do Email -->
+                                    <div class="linha01">
+                                        <section class="sections_infos" id="section_email">
+                                            <div class="labelAlinhamento"><label>Email:</label></div>
+                                            <input class="inputInformacoes01" type="email" name="email_usuario" placeholder="<?php echo $row['usuario_email'] ?>">
+                                            <input type="hidden" name="id_usuario" value="<?php echo $row['id_usuario'] ?>"> <!-- input escondido para levar o valor do id do usuario -->
+                                        </section>
+                                    </div>
+                                    <!-- FIM Section EMAIL -->
+                                    <!-- Segunda Section (Senha)- H4 da Senha, input da Email, botão de salvar e botão de delete -->
+                                    <div class="linha02">
 
-                            <form action="../../functions/excluir_usuario.php" method="POST">
-                                <input type="hidden" name="id_usuario_delete" value="<?php echo $row['id_usuario'] ?>"> <!-- input escondido para levar o valor do id do usuario -->
-                                <button class="delete_button" type="submit">
-                                    <figure id="delete_icon">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </figure>
-                                </button>
-                            </form>
-                            <!-- FIM Forms-->
+
+                                        <section class="sections_infos" id="section_senha">
+                                            <div class="labelAlinhamento"><label>Senha:</label></div>
+                                            <input class="inputInformacoes02" type="password" name="senha_usuario" value="" placeholder="Troque a senha aqui">
+                                            <input id="salvar" type="submit" value="Salvar">
+                                </form>
+                                <!-- FIM Forms-->
+
+                                <form action="../../functions/excluir_usuario.php" method="POST" class="formDeletar">
+                                    <input type="hidden" name="id_usuario_delete" value="<?php echo $row['id_usuario'] ?>"> <!-- input escondido para levar o valor do id do usuario -->
+                                    <button class="delete_button" type="submit">
+                                        <figure id="delete_icon">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </figure>
+                                    </button>
+                                </form>
+
+                                <!-- FIM Forms-->
 
         </section>
+        </div>
         <!-- FIM Section Senha -->
-        <hr> <!-- HR para separar cada usuário e suas informações-->
+        </div>
+        <!-- FIM div item -->
+
 <?php
                         }
                     } else {
@@ -198,6 +209,19 @@
             const form_infos = button.parentElement.nextElementSibling; //Criamos a varíavel que irá guardar o forms que queremos que apareça. Portanto, colocamos button.parentElement para buscar o elemento pai onde o botão está inserido, que no caso seria a div com class="Conteudo". Logo mais, nós adicionamos o parâmetro nextElementSibling, que irá buscar pelo elemento irmão (do lado) do div PAI do nosso botão, que no caso é justamente o forms, dess forma chegamos até o forms que queremos trocar o display para ele aparecer
             form_infos.style.display = (form_infos.style.display === 'none' || form_infos.style.display === '') ? 'flex' : 'none'; //Queremos acessar o estilo do forms, mais especificamente o display dele, por isso colocamos: form_infos.style.display. Após isso vem a parte crucial do código, temos nossa condição, se o display estiver como none ou se o display estiver vazio (o que seria para saber se o forms está aparecendo ou não). Depois disso, usamos o '?' que serve como encurtamento do bloco if/else, então se algum dos argumentos for TRUE - ou seja o forms não está visível - ele passa o display para flex para ele ficar visível, caso contrário se nenhuma delas for verdadeira então o forms está visível, portanto ele manda o display ficar none para o forms se esconder quando o usuário clicar na setinha denovo
         }
+
+        const senhaInput = document.getElementById("senha");
+        const togglePassword = document.getElementById("togglePassword");
+
+        togglePassword.addEventListener("click", function() {
+            // Alternar o tipo de input entre "password" e "text"
+            const isPassword = senhaInput.type === "password";
+            senhaInput.type = isPassword ? "text" : "password";
+
+            // Alternar o ícone entre "fa-eye" e "fa-eye-slash"
+            togglePassword.classList.toggle("fa-eye");
+            togglePassword.classList.toggle("fa-eye-slash");
+        });
     </script>
 </body>
 

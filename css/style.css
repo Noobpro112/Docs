@@ -66,8 +66,9 @@ h2 {
 }
 
 .boxLogin-button input:hover {
-    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
-  }
+    transform: scale(1.05);
+    /* Aumenta ligeiramente o tamanho */
+}
 
 
 .boxLogin-input input {
@@ -84,7 +85,12 @@ h2 {
 
 input:-webkit-autofill {
     background-color: #ededed !important;
-    box-shadow: 0 0 0px 1000px #ededed inset !important; 
+    box-shadow: 0 0 0px 1000px #ededed inset !important;
+}
+
+input:focus-visible {
+    border: none;
+    outline: 0;
 }
 
 .inputEmail input {
@@ -160,3 +166,10 @@ input:-webkit-autofill {
     z-index: 1;
 }
 
+.boxLogin form h4 {
+    font-family: var(--primary-font);
+    font-size: 13px;
+    margin-left: 15px;
+    margin-bottom: 5px;
+
+}
