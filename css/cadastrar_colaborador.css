@@ -271,12 +271,24 @@ main {
     width: 370px;
 }
 
-
 .inputInformacoes02 {
     width: 200px;
 }
 
-
 input#senha.inputsCadastrar {
     width: 210px;
+}
+
+.linhaSenha {
+    display: flex;
+    align-items: center;
+    
+}
+
+.linhaSenha i {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--second-color);
+    height: 29px;
+    width: 30px;
+    padding-top: 5px;
 }

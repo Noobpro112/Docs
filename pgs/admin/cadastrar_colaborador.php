@@ -58,9 +58,11 @@
                 ?>
 
                 <input class="inputsCadastrar" type="text" name="nome" placeholder="Nome"> <!--Input para inserir nome-->
-                <input class="inputsCadastrar" type="email" name="email" placeholder="Email"> <!--Input para inserir email-->
-                <input class="inputsCadastrar" type="password" name="senha" placeholder="Senha" id="senha"> <!--Input para inserir senha-->
-                <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
+                <input class="inputsCadastrar" type="email" name="email" placeholder="Email">
+                <div class="linhaSenha"> <!--Input para inserir email-->
+                    <input class="inputsCadastrar" type="password" name="senha" placeholder="Senha" id="senha"> <!--Input para inserir senha-->
+                    <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
+                </div>
                 <div class="tipoUsuarioLinha">
                     <p>Tipo do usuário:</p> <!--H5 para a senha-->
                     <select name="tipo_usuario" id="tipo_usuario"> <!--Select para escolher o tipo de usuário que queira cadastrar-->
