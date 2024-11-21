@@ -85,7 +85,7 @@
                         <!--Codigo do fontawesome da lupa de pesquisa-->
                         <i class="bi bi-search"></i>
                     </figure>
-                    <input type="search" name="NomePesquisa" placeholder="Buscar" onkeyup="filtrarUsuarios();" id="pesquisa_usuario"> <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
+                    <input type="search" name="NomePesquisa" placeholder="Buscar" onkeyup="filtrarUsuarios();" id="pesquisa_usuario"> <!--Input para inserir nome, porém na parte de pesquisa por colaborador, para pesquisar o colaborador direto para então realizar as demais funções-->
                 </div>
 
                 <!--Bloco PHP para verficar as repostas de erro do servidor-->
@@ -188,6 +188,7 @@
                     }
 
 ?>
+<!-- DIV que mostrar a mensagem que nenhum usuário foi encontrado, caso o nome digitado pela pessoa não for achada na função do JS -->
 <div class="usuarioNaoEncontrado" style="display: none;">Usuário não encontrado</div>
 </div>
 <!-- FIM Cadastro BOX-->
@@ -231,7 +232,7 @@
         });
         
         function filtrarUsuarios() {
-            var termoPesquisa = $('#pesquisa_usuario').val().toLowerCase(); // Pega o termo de pesquisa em minúsculo
+            var termoPesquisa = $('#pesquisa_usuario').val().toLowerCase(); // Pega o elemento do HTML com id = pesquisa_usuario, que no caso é um input tipo search e pega o valor atual dele e passa tudo para minusculas
             var usuariosEncontrados = false; // Variável para verificar se encontrou algum usuário
 
             // Exibe todos os itens se a pesquisa estiver vazia
@@ -241,16 +242,16 @@
                 return;
             }
 
-            // Percorre todos os itens e aplica o filtro
+            // Pega todos os elementos que possuem a classe item, que no caso é uma DIV que mostra as informações de cada usuário e itera sobre cada um uma função
             $('.item').each(function() {
-                var nomeUsuario = $(this).data('nome').toLowerCase(); // Obtém o nome do usuário em minúsculo
+                var nomeUsuario = $(this).data('nome').toLowerCase(); // pega o valor nome do atributo data (definido lá no HTML) do elemento atual que está sendo iterado passa tudo para minusculas e guarda em uma variável
 
                 // Verifica se o nome do usuário contém o termo de pesquisa
-                if (nomeUsuario.indexOf(termoPesquisa) !== -1) {
-                    $(this).show(); // Exibe o item
+                if (nomeUsuario.indexOf(termoPesquisa) !== -1) { // O método indexOf serve para verificar se um indice, no caso o termoPesquisa definido lá em cima, está incluido em uma determinada string, no caso nomeUsuario. Caso não for encontrado retorna -1, por isso !== -1
+                    $(this).show(); // Exibe o item atual da iteração 
                     usuariosEncontrados = true; // Marca como encontrado
                 } else {
-                    $(this).hide(); // Esconde o item
+                    $(this).hide(); // Esconde o item atual da iteração
                 }
             });
 
@@ -261,7 +262,6 @@
                 $('.usuarioNaoEncontrado').show(); // Exibe a mensagem de "Usuário não encontrado"
             }
         }
-
     </script>
 </body>
 
