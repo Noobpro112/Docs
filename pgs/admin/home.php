@@ -27,9 +27,12 @@
 
     <!--Div que vai aparecer quando o usuario clicar no icone de filtrar-->
     <div id="filtros">
+        <!--Form que será usado para pesquisar por pastas e também para filtrar os documentos pela pasta-->
         <form action="" method="POST">
-            <input type="search" id="pesquisa" placeholder="Pesquise pelas pastas" onkeyup="filtrarPastas();">
+            <!--Input do tipo search que será usado para o usuário pesquisar por pastas que ele queira filtrar-->
+            <input type="search" id="pesquisa" placeholder="Pesquise pelas pastas" onkeyup="filtrarPastas();"> <!--Atributo que acionará a função toda vez que o usuário digitar uma nova tecla-->
             <br>
+            <!--Código PHP para selecionar as pastas que já existem para o usuario filtrar por pastas-->
             <?php
                 $SelectPastas = "SELECT * FROM tb_pasta";
                 $executePasta = $conexao -> query($SelectPastas);
@@ -37,18 +40,26 @@
                 if($executePasta -> num_rows > 0){
                     while($rowPasta = $executePasta -> fetch_assoc()){
                         ?>  
-                        <div class="pasta-item" data-nome="<?php echo $rowPasta['pasta_nome']; ?>">
+                        <!--Div que armazena todas as pastas que serviram como filtro-->
+                        <div class="pasta-item" data-nome="<?php echo $rowPasta['pasta_nome']; ?>"> <!--Atributo data, nesse caso descrito como nome, onde o HTML armazena dados que não são exibidos na tela do usuário-->
+                            <!--label para mostrar o nome das pastas do lado do checkbox-->
                             <label for="pasta_<?php echo $rowPasta['id_pasta']; ?>">
                                 <?php echo htmlspecialchars($rowPasta['pasta_nome']); ?>
                             </label>
+                            <!--FIM LABEL PARA INPUTS-->
+
+                            <!--Input checkbox para o usuário selecionar a pasta que ele deseja filtrar os documentos,o atributo name é uma array para permitir o usuário selecionar mais de uma pasta para pesquisa -->
                             <input 
                                 type="checkbox" 
                                 id="pasta_<?php echo $rowPasta['id_pasta']; ?>" 
                                 name="pastas[]" 
                                 value="<?php echo $rowPasta['id_pasta']; ?>"
                                 class="checkbox-pasta"
-                            >
+                            > 
+                            <!--FIM INPUT CHECKBOX-->
+
                         </div>
+                        <!--Fim da DIV pasta item-->
                         <?php
                     }
                 }else{
@@ -56,10 +67,14 @@
                 }
 
             ?>
+            <!--DIV que será usada para exibir uma mensagem caso o javascript não encontre nenhuma pasta no banco de dados que possua o nome pesquisado pelo usuário-->
             <div class="pastasEncontradas" style="display: none;">Pasta não encontrada</div>
+            <!--FIM DIV pastasEncontradas-->
         </form>
+        <!--Fim DO FORMS PARA FILTRO DOS DOCUMENTOS-->
     </div>
     <!--FIM da DIV filtro -->
+
     <!--Div que vai aparecer ao clicar no +-->
     <div id="opcoes">
         <button onclick="showCriarPasta();" id="criar_pasta_button"> <!--Botão para criar uma nova pasta-->
@@ -175,25 +190,26 @@
             xhr.send('nome_pasta=' + encodeURIComponent(nome_pasta)); //Enviando a requisição e também os dados que serão tratados no PHP
         }
 
+
         // Função para filtrar as pastas enquanto o usuário digita
         function filtrarPastas() {
-            var termoPesquisa = $('#pesquisa').val().toLowerCase(); // Pega o termo de pesquisa em minúsculo
-            var pastasEncontradas = false; // Variável para verificar se encontrou algum usuário
-            $('.pasta-item').each(function() {
-                var nomePasta = $(this).data('nome').toLowerCase(); // Obtém o nome da pasta em minúsculo
-                if (nomePasta.includes(termoPesquisa)) {
-                    $(this).show(); // Exibe a pasta
-                    pastasEncontradas = true;
+            var termoPesquisa = $('#pesquisa').val().toLowerCase(); // Guarda o valor atual do elemento que possui o id #pesquisa, que seria um input tipo search (Lembrando que esse valor irá atualizar a cada nova tecla digitada) e vai passar para minusculas para facilitar a manipulação
+            var pastasEncontradas = false; // Variável para verificar se foi encontrada alguma pasta com base na pesquisa digitada pelo usuário
+            $('.pasta-item').each(function() { //Seleciona cada elemento no HTML que possui a classe = pasta-item e roda em cada uma função, por isso o each(function())
+                var nomePasta = $(this).data('nome').toLowerCase(); // Cria uma variável para acessar o elemento atual da interação, por isso o (this) e pega no atributo nome que foi passado lá no HTML dentro do atributo data e parassa tudo para minusculo
+                if (nomePasta.includes(termoPesquisa)) { //Basicamente pega o nome da pasta que foi salvo acima e verifica se o termoPesquisa, ou seja, o que o usuario digitou esta incluso nesse nome da pasta
+                    $(this).show(); // Caso o termo estiver incluido no nome da pasta, então mostra o elemento atual da iteração, por isso o (this).show();
+                    pastasEncontradas = true; // Define a variável como true, pois foi encontrada alguma pasta de acordo com aquilo que foi digitado pelo usuário
                 } else {
-                    $(this).hide(); // Esconde a pasta
+                    $(this).hide(); // Caso não inclua, então o JS esconde aquele o elemento atual, ou seja, não permite que o usuário veja aquela pasta, logo ela não aparece na pesquisa
                 }
             });
 
-            // Exibe a mensagem caso nenhum usuário tenha sido encontrado
+            // Caso a variável responsável por verificar se foi encontrada alguma pasta estiver definida com true, então ele esconde a div com classe = pastasEncontradas
             if (pastasEncontradas) {
-                $('.pastasEncontradas').hide(); // Esconde a mensagem
-            } else {
-                $('.pastasEncontradas').show(); // Exibe a mensagem de "Usuário não encontrado"
+                $('.pastasEncontradas').hide(); 
+            } else { // Caso contrário, ele mostra a DIV aparecendo a mensagem de Pasta não encontrada
+                $('.pastasEncontradas').show();
             }
         }
 
@@ -207,7 +223,7 @@
                 });
 
                 $.ajax({
-                    url: 'filtro_ajax.php', // Arquivo que irá processar a requisição
+                    url: '../../functions/filtro_ajax.php', // Arquivo que irá processar a requisição
                     type: 'POST',
                     data: {
                         pastas: pastasSelecionadas
