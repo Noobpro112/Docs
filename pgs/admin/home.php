@@ -4,8 +4,6 @@
     <?php
     session_start();
     include_once('../../include/conexao.php');
-    $sql = "SELECT * FROM documentos";
-    $resultado = mysqli_query($conexao, $sql);
     ?>
 <head>
     <meta charset="UTF-8">
@@ -17,25 +15,47 @@
 </head>
 <body>
     <h1>Selecione um Arquivo:</h1>
-    <?php
-    while ($registro = mysqli_fetch_assoc($resultado)) {
-        $titulo = $registro['titulo'];
-        $id = $registro['id'];
-        echo '<a href="editor.php?id=' . $id . '">' . $titulo . ' ' . $id . '</a><br>'; // AQUI ELE TA MOSTRANDO OS ARQUIVOS. então você pode colocar como um botão ou da forma que preferir.
-    }
-    ?>
-    <br>
+    <div id="documentosList">
+        <!-- Os documentos filtrados serão carregados aqui -->
+    </div>
 
     <!--Botão para usuário acessar os filtros de pesquisa-->
-    <button id="button_filtro">
+    <button id="button_filtro" onclick="showFiltros();">
         <i class="bi bi-funnel"></i>
     </button>
     <!--FIM do Botão button_filtro-->
 
     <!--Div que vai aparecer quando o usuario clicar no icone de filtrar-->
     <div id="filtros">
-        <form action="../../functions/pesquisa_filtro" method="POST">
+        <form action="" method="POST">
+            <input type="search" id="pesquisa" placeholder="Pesquise pelas pastas" onkeyup="filtrarPastas();">
+            <br>
+            <?php
+                $SelectPastas = "SELECT * FROM tb_pasta";
+                $executePasta = $conexao -> query($SelectPastas);
 
+                if($executePasta -> num_rows > 0){
+                    while($rowPasta = $executePasta -> fetch_assoc()){
+                        ?>  
+                        <div class="pasta-item" data-nome="<?php echo $rowPasta['pasta_nome']; ?>">
+                            <label for="pasta_<?php echo $rowPasta['id_pasta']; ?>">
+                                <?php echo htmlspecialchars($rowPasta['pasta_nome']); ?>
+                            </label>
+                            <input 
+                                type="checkbox" 
+                                id="pasta_<?php echo $rowPasta['id_pasta']; ?>" 
+                                name="pastas[]" 
+                                value="<?php echo $rowPasta['id_pasta']; ?>"
+                                class="checkbox-pasta"
+                            >
+                        </div>
+                        <?php
+                    }
+                }else{
+                    echo "Nenhuma pasta foi criada ainda";
+                }
+
+            ?>
         </form>
     </div>
     <!--FIM da DIV filtro -->
@@ -119,6 +139,12 @@
             form_criar_pasta.style.display = 'none'; //Trocar display para none, escondendo o forms
         }
 
+        //Function para trocar o display da div opcoes, onde o usuário poderá criar pastas ou criar documentos
+        function showFiltros() {
+            let div_filtros = document.getElementById('filtros'); 
+            div_filtros.style.display = (div_filtros.style.display === 'none' || div_filtros.style.display === '') ? 'block' : 'none';
+        }
+
         $(document).ready(function() { //Garante que esse comando seja executado apenas depois da página estar completamente carregada
             $('#select_documents').select2({ //Inicializa o select2 no <select> que possui id = select_documents
                 placeholder: "Selecionar documentos", //Adiciona placeholder à ele, pois teoricamente um select não tem placeholder
@@ -148,6 +174,51 @@
             };
             xhr.send('nome_pasta=' + encodeURIComponent(nome_pasta)); //Enviando a requisição e também os dados que serão tratados no PHP
         }
+
+        // Função para filtrar as pastas enquanto o usuário digita
+        function filtrarPastas() {
+            var termoPesquisa = $('#pesquisa').val().toLowerCase(); // Pega o termo de pesquisa em minúsculo
+            $('.pasta-item').each(function() {
+                var nomePasta = $(this).data('nome').toLowerCase(); // Obtém o nome da pasta em minúsculo
+                if (nomePasta.includes(termoPesquisa)) {
+                    $(this).show(); // Exibe a pasta
+                } else {
+                    $(this).hide(); // Esconde a pasta
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            // Função para realizar a requisição AJAX sempre que o usuário interagir com os filtros
+            function filtrarDocumentos() {
+                // Coleta os valores das pastas selecionadas
+                var pastasSelecionadas = [];
+                $("input[name='pastas[]']:checked").each(function() {
+                    pastasSelecionadas.push($(this).val());
+                });
+
+                $.ajax({
+                    url: 'filtro_ajax.php', // Arquivo que irá processar a requisição
+                    type: 'POST',
+                    data: {
+                        pastas: pastasSelecionadas
+                    },
+                    success: function(response) {
+                        // Atualiza a lista de documentos na página sem recarregar
+                        $('#documentosList').html(response);
+                    }
+                });
+            }
+
+            // Chamando a função de filtro quando o usuário alterar a seleção das pastas
+            $("input[type='checkbox']").on('change', function() {
+                filtrarDocumentos();
+            });
+
+            // Chama o filtro inicial quando a página carrega
+            filtrarDocumentos();
+        });
+
     </script>
 </body>
 </html>

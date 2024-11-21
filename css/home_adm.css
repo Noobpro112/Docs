@@ -77,6 +77,24 @@ button#button_filtro i{
     color: white;
 }
 
+div#filtros{
+    width: 300px;
+    height: 400px;
+    display: none;
+    background-color: black;
+    position: relative;
+}
+
+div#filtros form{
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}
+
 
 /* Este bloco seria um css para tentar direcionar a estilização do select multiple, que talvez seja um pouco complicada de fazer */
 .select2-container .select2-selection--multiple {
