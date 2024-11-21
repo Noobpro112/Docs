@@ -213,21 +213,22 @@
             }
         }
 
-        $(document).ready(function() {
+        $(document).ready(function() { // Aciona a função quando todos os elementos do HTML estiverem carregados
             // Função para realizar a requisição AJAX sempre que o usuário interagir com os filtros
             function filtrarDocumentos() {
-                // Coleta os valores das pastas selecionadas
-                var pastasSelecionadas = [];
-                $("input[name='pastas[]']:checked").each(function() {
-                    pastasSelecionadas.push($(this).val());
+                var pastasSelecionadas = []; // Define uma variável que armazenará todas as pastas que foram selecionadas pelo usuário para filtro
+                $("input[name='pastas[]']:checked").each(function() { // Pega todos os elementos do HTML que são inputs, possuem o name = pastas[] e estão seleciondaos(checked) e itera sobre cada um uma função
+                    pastasSelecionadas.push($(this).val()); //Obtém o valor do elemento atual na iteração, que seria o id da pasta que foi definido lá no HTML como value e adiciona na array criada anteriormente
                 });
 
+                // Inicia um AJAX
                 $.ajax({
-                    url: '../../functions/filtro_ajax.php', // Arquivo que irá processar a requisição
-                    type: 'POST',
-                    data: {
+                    url: 'filtro_ajax.php', // Para onde irá os dados do AJAX para manipulação
+                    type: 'POST', //Define o tipo de requisição como POST
+                    data: { // Passa os dados que serão manipulados, no caso a array que foi criada e iterada acima
                         pastas: pastasSelecionadas
                     },
+                    //É definida uma função que será chamada caso a requisição for bem-sucedida
                     success: function(response) {
                         // Atualiza a lista de documentos na página sem recarregar
                         $('#documentosList').html(response);
@@ -235,15 +236,14 @@
                 });
             }
 
-            // Chamando a função de filtro quando o usuário alterar a seleção das pastas
-            $("input[type='checkbox']").on('change', function() {
+            // Chama um envento listener, que basicamente aciona a funçãp acima de filtrarDocumentos toda vez que os inputs de tipo cehckbox da página mudarem de estado, ou seja, serem marcados ou desmarcados
+            $("input.checkbox-pasta[type='checkbox']").on('change', function() {
                 filtrarDocumentos();
             });
 
             // Chama o filtro inicial quando a página carrega
             filtrarDocumentos();
         });
-
     </script>
 </body>
 </html>
