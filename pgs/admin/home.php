@@ -33,7 +33,7 @@
         <!--Form que será usado para pesquisar por pastas e também para filtrar os documentos pela pasta-->
         <form action="" method="POST">
             <!--Input do tipo search que será usado para o usuário pesquisar por pastas que ele queira filtrar-->
-            <input type="search" id="pesquisa" placeholder="Pesquise pelas pastas" onkeyup="filtrarPastas();"> <!--Atributo que acionará a função toda vez que o usuário digitar uma nova tecla-->
+            <input type="search" id="pesquisa" placeholder="Pesquise pelas pastas" oninput="filtrarPastas();"> <!--Atributo que acionará a função toda vez que o usuário digitar uma nova tecla-->
             <br>
             <!--Código PHP para selecionar as pastas que já existem para o usuario filtrar por pastas-->
             <?php
@@ -198,6 +198,16 @@
         function filtrarPastas() {
             var termoPesquisa = $('#pesquisa').val().toLowerCase(); // Guarda o valor atual do elemento que possui o id #pesquisa, que seria um input tipo search (Lembrando que esse valor irá atualizar a cada nova tecla digitada) e vai passar para minusculas para facilitar a manipulação
             var pastasEncontradas = false; // Variável para verificar se foi encontrada alguma pasta com base na pesquisa digitada pelo usuário
+
+            console.log('Search term:', termoPesquisa);
+            if (termoPesquisa === '') {
+                console.log('No search term, showing all folders');
+                $('.pasta-item').show();
+                $('.pastasEncontradas').hide();
+                return;
+            }
+
+
             $('.pasta-item').each(function() { //Seleciona cada elemento no HTML que possui a classe = pasta-item e roda em cada uma função, por isso o each(function())
                 var nomePasta = $(this).data('nome').toLowerCase(); // Cria uma variável para acessar o elemento atual da interação, por isso o (this) e pega no atributo nome que foi passado lá no HTML dentro do atributo data e parassa tudo para minusculo
                 if (nomePasta.includes(termoPesquisa)) { //Basicamente pega o nome da pasta que foi salvo acima e verifica se o termoPesquisa, ou seja, o que o usuario digitou esta incluso nesse nome da pasta
