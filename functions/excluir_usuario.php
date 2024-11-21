@@ -12,7 +12,7 @@ if(isset($_POST['id_usuario_delete'])){
     $UpdateAtivo -> execute();
 
     if($UpdateAtivo){
-        header('Location: ../pgs/admin/cadastrar_colaborador.php', true, 301);
+        header('Location: ../pgs/admin/cadastrar_colaborador.php?status=successDelete', true, 301);
         exit();
     } else{
         header('Location: ../pgs/admin/cadastrar_colaborador.php?status=failUpdateAtivo', true, 301);

@@ -98,6 +98,10 @@
                     echo '<h3> Falha ao atualizar informações </h3>'; //H4 para falha no processo de update
                 } elseif (isset($_GET['status']) && ($_GET['status'] == 'failUpdateAtivo')) {
                     echo '<h3> Erro ao excluir Usuário </h3>'; //H4 para erro ao excluir
+                }elseif (isset($_GET['status']) && ($_GET['status'] == 'successUP')) {
+                    echo '<h3> Dados Atualizados </h3>'; //H4 para erro ao excluir
+                }elseif (isset($_GET['status']) && ($_GET['status'] == 'successDelete')) {
+                    echo '<h3> Usuário deletado com sucesso </h3>'; //H4 para erro ao excluir
                 } elseif (isset($_GET['status']) && ($_GET['status'] == 'fail')) {
                     echo '<h3> Erro nos dados </h3>'; //H4 para dados não fornecidos
                 }

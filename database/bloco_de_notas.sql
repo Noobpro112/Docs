@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 05/11/2024 às 23:18
+-- Tempo de geração: 21/11/2024 às 21:14
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -28,16 +28,29 @@ DELIMITER $$
 -- Procedimentos
 --
 DROP PROCEDURE IF EXISTS `cadastrar_usuario`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_usuario` (IN `usuario_nome` VARCHAR(255), IN `usuarios_email` VARCHAR(255), IN `usuario_senha` VARCHAR(255), IN `usuario_data_entrada` DATETIME, OUT `confirmacao` BOOLEAN, IN `tipo_usuario` ENUM('ADM','COLLAB'))   BEGIN 
-	DECLARE rows_count INT;
-    
-	SELECT COUNT(*) INTO rows_count FROM tb_usuario WHERE usuario_email = usuarios_email; 
-IF rows_count > 0 THEN 
-	SET confirmacao = FALSE; 
-ELSE 
-    INSERT INTO tb_usuario (usuario_nome, usuario_email, usuario_senha, usuario_tipo, usuario_data_entrada, usuario_ativo) VALUES (usuario_nome, usuarios_email, usuario_senha, 'COLLAB', usuario_data_entrada, 		1); 
-    SET confirmacao = TRUE; 
-END IF; 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_usuario` (IN `nome_usuario_digitado` VARCHAR(255), IN `email_usuario_digitado` VARCHAR(255), IN `senha_usuario_digitada` VARCHAR(255), IN `tipo_usuario_digitado` ENUM('ADM','COLLAB'), IN `data_entrada_usuario` DATETIME, OUT `Confirmacao` BOOLEAN)   BEGIN
+    DECLARE linhas INT;
+
+    SELECT COUNT(*) INTO linhas 
+    FROM tb_usuario 
+    WHERE usuario_email = email_usuario_digitado;
+
+    IF linhas > 0 THEN
+        SET Confirmacao = FALSE;
+    ELSE
+        INSERT INTO tb_usuario (
+            usuario_nome, usuario_email, usuario_senha, usuario_tipo, usuario_data_entrada, usuario_ativo
+        ) VALUES (
+            nome_usuario_digitado, 
+            email_usuario_digitado, 
+            SHA2(senha_usuario_digitada, 256), 
+            tipo_usuario_digitado, 
+            data_entrada_usuario, 
+            1
+        );
+        
+        SET Confirmacao = TRUE;
+    END IF;
 END$$
 
 DELIMITER ;
@@ -73,7 +86,8 @@ INSERT INTO `documentos` (`id`, `titulo`, `conteudo`, `data_criacao`, `data_modi
 (10, 'Documento Sem Titulo', 'Digite Aqui...', '2024-10-22 20:37:40', '2024-10-22 20:37:40', 1, 14, NULL),
 (9, 'Documento Sem Titulo', 'Digite Aqui...', '2024-10-22 20:19:12', '2024-10-22 20:19:12', 1, 14, NULL),
 (8, 'adsadasd', '\n        adasdasdasdasdas<div><br></div>', '2024-10-22 18:32:48', '2024-10-23 19:55:45', 1, 14, 4),
-(11, 'Documento Sem Titulo', 'Digite Aqui...', '2024-10-22 21:05:17', '2024-10-22 21:05:17', 1, 14, NULL);
+(11, 'Documento Sem Titulo', 'Digite Aqui...', '2024-10-22 21:05:17', '2024-10-22 21:05:17', 1, 14, NULL),
+(12, 'Documento Sem Titulo', 'Digite Aqui...', '2024-11-20 13:48:05', '2024-11-20 13:48:05', 1, 14, NULL);
 
 -- --------------------------------------------------------
 
@@ -137,8 +151,8 @@ CREATE TABLE `tb_usuario` (
 
 INSERT INTO `tb_usuario` (`id_usuario`, `usuario_nome`, `usuario_email`, `usuario_senha`, `usuario_tipo`, `usuario_data_entrada`, `usuario_ativo`) VALUES
 (1, 'Kauan', 'kauan@gmail.com', '8007c68d8718fa840f80bfe69792dd72cfe5534e538c1dda36b6d073cf68122c', 'ADM', '2024-10-08 17:30:00', 1),
-(2, 'Matheus', 'matheus@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'COLLAB', '2024-10-14 13:50:11', 1),
-(7, 'Julia', 'julia@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'COLLAB', '0000-00-00 00:00:00', 0);
+(2, 'Matheus', 'matheus@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'COLLAB', '2024-10-14 13:50:11', 0),
+(9, 'Ronaldo', 'ronaldo2@gmail.com', '8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414', 'ADM', '2024-11-21 17:04:49', 0);
 
 -- --------------------------------------------------------
 
@@ -156,19 +170,6 @@ CREATE TABLE `usuarios_ativos` (
 ,`usuario_data_entrada` datetime
 ,`usuario_ativo` tinyint(1)
 );
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `usuario_documento`
---
-
-DROP TABLE IF EXISTS `usuario_documento`;
-CREATE TABLE `usuario_documento` (
-  `id_usuario_documento` int(11) NOT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
-  `id_documento` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -214,14 +215,6 @@ ALTER TABLE `tb_usuario`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
--- Índices de tabela `usuario_documento`
---
-ALTER TABLE `usuario_documento`
-  ADD PRIMARY KEY (`id_usuario_documento`),
-  ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_documento` (`id_documento`);
-
---
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -229,7 +222,7 @@ ALTER TABLE `usuario_documento`
 -- AUTO_INCREMENT de tabela `documentos`
 --
 ALTER TABLE `documentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `tb_pasta`
@@ -241,13 +234,7 @@ ALTER TABLE `tb_pasta`
 -- AUTO_INCREMENT de tabela `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de tabela `usuario_documento`
---
-ALTER TABLE `usuario_documento`
-  MODIFY `id_usuario_documento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -10,6 +10,8 @@ if(isset($_POST['email_usuario']) && isset($_POST['senha_usuario']) && isset($_P
     $SelectUsuarios = "SELECT * FROM usuarios_ativos"; //Selecionar os usuários ativos que são pegos pela View
     $executeSelectUsuario = $conexao -> query($SelectUsuarios);
 
+    $new_hash_password = hash('sha256', $new_senha);
+
     //Bloco PHP para procurar e verificar se o email já está sendo utilizado ou não
     if($executeSelectUsuario && $executeSelectUsuario -> num_rows > 0){ 
         while($row = $executeSelectUsuario -> fetch_assoc()){
@@ -33,7 +35,7 @@ if(isset($_POST['email_usuario']) && isset($_POST['senha_usuario']) && isset($_P
         $UpdateUsuario -> execute();
     
         if($UpdateUsuario){
-            header('Location: ../pgs/admin/cadastrar_colaborador.php', true, 301);
+            header('Location: ../pgs/admin/cadastrar_colaborador.php?status=successUP', true, 301);
             exit();
         }else{
             header('Location: ../pgs/admin/cadastrar_colaborador.php?status=failUpdate', true, 301);
@@ -42,12 +44,12 @@ if(isset($_POST['email_usuario']) && isset($_POST['senha_usuario']) && isset($_P
     }elseif($new_senha != '' && $new_email == ''){
         $UpdateUsuario = $conexao -> prepare("UPDATE tb_usuario SET usuario_senha = ? WHERE id_usuario = ?"); //Caso for apenas a senha, o update é feito só na senha
 
-        $UpdateUsuario -> bind_param('si', $new_senha, $id_usuario);
+        $UpdateUsuario -> bind_param('si', $new_hash_password, $id_usuario);
     
         $UpdateUsuario -> execute();
     
         if($UpdateUsuario){
-            header('Location: ../pgs/admin/cadastrar_colaborador.php', true, 301);
+            header('Location: ../pgs/admin/cadastrar_colaborador.php?status=successUP', true, 301);
             exit();
         }else{
             header('Location: ../pgs/admin/cadastrar_colaborador.php?status=failUpdate', true, 301);
@@ -56,12 +58,12 @@ if(isset($_POST['email_usuario']) && isset($_POST['senha_usuario']) && isset($_P
     } else{
         $UpdateUsuario = $conexao -> prepare("UPDATE tb_usuario SET usuario_email = ?, usuario_senha = ? WHERE id_usuario = ?"); //Caso for para trocar os dois, o update é feito nos dois (senha e email)
 
-        $UpdateUsuario -> bind_param('ssi', $new_email, $new_senha, $id_usuario);
+        $UpdateUsuario -> bind_param('ssi', $new_email, $new_hash_password, $id_usuario);
     
         $UpdateUsuario -> execute();
     
         if($UpdateUsuario){
-            header('Location: ../pgs/admin/cadastrar_colaborador.php', true, 301);
+            header('Location: ../pgs/admin/cadastrar_colaborador.php?status=successUP', true, 301);
             exit();
         }else{
             header('Location: ../pgs/admin/cadastrar_colaborador.php?status=failUpdate', true, 301);
