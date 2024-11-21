@@ -15,9 +15,12 @@
 </head>
 <body>
     <h1>Selecione um Arquivo:</h1>
+
+    <!--DIV que vai guardar todos os documentos criados e que mudará de acordo com os filtros selecionados pelos usuários-->
     <div id="documentosList">
         <!-- Os documentos filtrados serão carregados aqui -->
     </div>
+    <!--FIM DA DIV documentosList-->
 
     <!--Botão para usuário acessar os filtros de pesquisa-->
     <button id="button_filtro" onclick="showFiltros();">
