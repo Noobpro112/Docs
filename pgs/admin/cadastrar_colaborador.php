@@ -14,7 +14,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     </style>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -85,7 +85,7 @@
                         <!--Codigo do fontawesome da lupa de pesquisa-->
                         <i class="bi bi-search"></i>
                     </figure>
-                    <input type="search" name="NomePesquisa" placeholder="Buscar"> <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
+                    <input type="search" name="NomePesquisa" placeholder="Buscar" onkeyup="filtrarUsuarios();" id="pesquisa_usuario"> <!--Input para inserir nome, porém na parte de pesquisa por colaborador-->
                 </div>
 
                 <!--Bloco PHP para verficar as repostas de erro do servidor-->
@@ -119,7 +119,7 @@
                     if ($executeSelectUsuario && $executeSelectUsuario->num_rows > 0) {
                         while ($row = $executeSelectUsuario->fetch_assoc()) {
                     ?>
-                            <div class="item">
+                            <div class="item" data-nome="<?php echo $row['usuario_nome']; ?>">
                                 <!-- Inicio Div item-titulo - Div para mostrar o nome e tipo do usuário além da setinha para acessar mais informações-->
                                 <div class="item-titulo">
                                     <!-- Local onde ficará a forto de perfil do usuário (figure) -->
@@ -188,6 +188,7 @@
                     }
 
 ?>
+<div class="usuarioNaoEncontrado" style="display: none;">Usuário não encontrado</div>
 </div>
 <!-- FIM Cadastro BOX-->
 </div>
@@ -228,6 +229,39 @@
             togglePassword.classList.toggle("fa-eye");
             togglePassword.classList.toggle("fa-eye-slash");
         });
+        
+        function filtrarUsuarios() {
+            var termoPesquisa = $('#pesquisa_usuario').val().toLowerCase(); // Pega o termo de pesquisa em minúsculo
+            var usuariosEncontrados = false; // Variável para verificar se encontrou algum usuário
+
+            // Exibe todos os itens se a pesquisa estiver vazia
+            if (termoPesquisa === "") {
+                $('.item').show(); // Exibe todos os itens
+                $('.usuarioNaoEncontrado').hide(); // Esconde a mensagem de "Usuário não encontrado"
+                return;
+            }
+
+            // Percorre todos os itens e aplica o filtro
+            $('.item').each(function() {
+                var nomeUsuario = $(this).data('nome').toLowerCase(); // Obtém o nome do usuário em minúsculo
+
+                // Verifica se o nome do usuário contém o termo de pesquisa
+                if (nomeUsuario.indexOf(termoPesquisa) !== -1) {
+                    $(this).show(); // Exibe o item
+                    usuariosEncontrados = true; // Marca como encontrado
+                } else {
+                    $(this).hide(); // Esconde o item
+                }
+            });
+
+            // Exibe a mensagem caso nenhum usuário tenha sido encontrado
+            if (usuariosEncontrados) {
+                $('.usuarioNaoEncontrado').hide(); // Esconde a mensagem
+            } else {
+                $('.usuarioNaoEncontrado').show(); // Exibe a mensagem de "Usuário não encontrado"
+            }
+        }
+
     </script>
 </body>
 

@@ -56,10 +56,10 @@
                 }
 
             ?>
+            <div class="pastasEncontradas" style="display: none;">Pasta não encontrada</div>
         </form>
     </div>
     <!--FIM da DIV filtro -->
-
     <!--Div que vai aparecer ao clicar no +-->
     <div id="opcoes">
         <button onclick="showCriarPasta();" id="criar_pasta_button"> <!--Botão para criar uma nova pasta-->
@@ -178,14 +178,23 @@
         // Função para filtrar as pastas enquanto o usuário digita
         function filtrarPastas() {
             var termoPesquisa = $('#pesquisa').val().toLowerCase(); // Pega o termo de pesquisa em minúsculo
+            var pastasEncontradas = false; // Variável para verificar se encontrou algum usuário
             $('.pasta-item').each(function() {
                 var nomePasta = $(this).data('nome').toLowerCase(); // Obtém o nome da pasta em minúsculo
                 if (nomePasta.includes(termoPesquisa)) {
                     $(this).show(); // Exibe a pasta
+                    pastasEncontradas = true;
                 } else {
                     $(this).hide(); // Esconde a pasta
                 }
             });
+
+            // Exibe a mensagem caso nenhum usuário tenha sido encontrado
+            if (pastasEncontradas) {
+                $('.pastasEncontradas').hide(); // Esconde a mensagem
+            } else {
+                $('.pastasEncontradas').show(); // Exibe a mensagem de "Usuário não encontrado"
+            }
         }
 
         $(document).ready(function() {
