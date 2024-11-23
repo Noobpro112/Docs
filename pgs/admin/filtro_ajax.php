@@ -6,9 +6,9 @@ $pastas_selecionadas = isset($_POST['pastas']) ? $_POST['pastas'] : []; // Criar
 // Construção da consulta com base nos filtros
 if (!empty($pastas_selecionadas)) { //Verifica se há pastas selecionadas
     $ids_pastas = implode(',', array_map('intval', $pastas_selecionadas)); // Cria uma variável para guardar os ids e passa eles para inteiros (intval), para isso é usado o método array_map, que vai passar por todos os elementos de uma array que no caso é a pastas_selecionadas. Já o implode pega esses elementos já transformados em inteiros e guarda todos em uma STRING que por sua vez separa os elementos por vírgulas
-    $sql = "SELECT * FROM documentos WHERE id_pasta IN ($ids_pastas)"; //Define a consulta com todos os ids selecionados 
+    $sql = "SELECT * FROM documentos WHERE id_pasta IN ($ids_pastas) ORDER BY titulo ASC"; //Define a consulta com todos os ids selecionados 
 } else {
-    $sql = "SELECT * FROM documentos"; // Se nenhuma pasta for selecionada, retorna todos os documentos
+    $sql = "SELECT * FROM documentos ORDER BY titulo ASC"; // Se nenhuma pasta for selecionada, retorna todos os documentos
 }
 
 // Executa a consulta
