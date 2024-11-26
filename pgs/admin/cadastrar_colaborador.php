@@ -35,7 +35,7 @@
             <label>Configurações</label>
         </a>
 
-        <a href="#">
+        <a href="../../functions/logout.php">
             <i class="fa-solid fa-right-from-bracket"></i>
             <label>Logout</label>
         </a>
