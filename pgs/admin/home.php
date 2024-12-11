@@ -14,6 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> <!--Link do css para a parte Select Multiple, onde esse css está para mostrar como ficaria, mas pode ser trocado-->
 </head>
 <body>
+<?php include_once("../../include/header.php"); ?>
     <h1>Selecione um Arquivo:</h1>
 
     <!--DIV que vai guardar todos os documentos criados e que mudará de acordo com os filtros selecionados pelos usuários-->
@@ -258,5 +259,6 @@
             filtrarDocumentos();
         });
     </script>
+</div> <!-- Fechamento DA DIV DO HEADER!!-->
 </body>
 </html>
