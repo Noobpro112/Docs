@@ -18,6 +18,9 @@ include_once('../../include/conexao.php');
     <script src="https://kit.fontawesome.com/a760d1109c.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        #link-cadastrarColaborador {
+            display: none;
+        }
     </style>
 </head>
 
