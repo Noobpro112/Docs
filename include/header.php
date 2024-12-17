@@ -164,7 +164,7 @@ header {
 
 <div class="menuDropDown" id="menuDropDown">
     <p><?php echo $_SESSION['usuario_nome']; ?></p> <!--Puxar do banco de dados o nome do colaborador!!!!!-->
-    <a href="../admin/perfil.php">
+    <a href="/perfil.php">
         <i class="fa-solid fa-gear"></i>
         <label>Configurações</label>
     </a>

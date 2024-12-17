@@ -15,7 +15,10 @@
 <body>
     <section class="ondas">
         <img id="ondaCinza" src="imgs/onda-cinza.svg" alt="Onda Cinza" />
-        <img id="ondaPreta" src="imgs/onda-preta.svg" alt="Onda preta" />
+        <div class="linhaLogo">
+            <img id="ondaPreta" src="imgs/onda-preta.png" alt="Onda preta" />
+            <img id="logoBranca" src="imgs/logo-branca.png" alt="Onda preta" />
+        </div>
     </section>
 
 
@@ -23,7 +26,7 @@
         <div class="boxLogin">
             <!-- Forms do login -->
             <form action="functions/login.php" method="POST">
-                
+
                 <div class="boxLogin-Title">
                     <h2>Login</h2>
                 </div>
@@ -66,7 +69,7 @@
         const senhaInput = document.getElementById("senha");
         const togglePassword = document.getElementById("togglePassword");
 
-        togglePassword.addEventListener("click", function() {
+        togglePassword.addEventListener("click", function () {
             // Alternar o tipo de input entre "password" e "text"
             const isPassword = senhaInput.type === "password";
             senhaInput.type = isPassword ? "text" : "password";

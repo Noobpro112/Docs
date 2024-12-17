@@ -161,9 +161,23 @@ input:focus-visible {
     z-index: -1;
 }
 
+.linhaLogo {
+    width: auto;
+    height: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
 #ondaPreta {
     width: -webkit-fill-available;
     z-index: 1;
+}
+
+#logoBranca {
+    width: auto;
+    z-index: 2;
+    top: 120px;
 }
 
 .boxLogin form h4 {
@@ -172,4 +186,38 @@ input:focus-visible {
     margin-left: 15px;
     margin-bottom: 5px;
 
+}
+
+@media (max-width: 1680px) {
+    #logoBranca {
+        width: auto;
+        top: 100px;
+    }
+}
+
+@media (max-width: 1444px) {
+    #logoBranca {
+        width: 300px;
+        top: 80px;
+    }
+}
+
+@media (max-width: 1366px) {
+    #logoBranca {
+        top: 60px;
+    }
+}
+
+@media (max-width: 1280px) {
+    #logoBranca {
+        width: 260px;
+        top: 60px;
+    }
+}
+
+@media (max-width: 1024px) {
+    #logoBranca {
+        width: 230px;
+        top: 40px;
+    }
 }
