@@ -5,7 +5,7 @@ function getProfilePicture() {
     global $conexao;
 
     if(!isset($_SESSION['usuario_id'])) {
-        return "../../imgs/perfil_preto.png"; // Caminho partindo da pasta admin
+        return "../../imgs/user-padrao.jpg"; // Caminho partindo da pasta admin
     }
 
     $id_usuario = $_SESSION['usuario_id'];
@@ -22,5 +22,5 @@ function getProfilePicture() {
         }
     }
 
-    return "../../imgs/perfil_preto.png"; // Caminho partindo da pasta admin
+    return "../../imgs/imgs/user-padrao.jpg"; // Caminho partindo da pasta admin
 }

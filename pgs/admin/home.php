@@ -1,20 +1,28 @@
 <?php global $conexao; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <?php
-    session_start();
-    include_once('../../include/conexao.php');
-    ?>
+<?php
+session_start();
+include_once('../../include/conexao.php');
+?>
 <head>
     <meta charset="UTF-8">
     <title>HOME ADM</title>
     <link rel="icon" type="image/x-icon" href="../../imgs/favicon.ico">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"><!--Link para usar os icones da bootstrap-->
+    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <!--Link para usar os icones da bootstrap-->
     <link rel="stylesheet" href="../../css/home_adm.css"><!--Link css da home do admin-->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> <!--Link do css para a parte Select Multiple, onde esse css está para mostrar como ficaria, mas pode ser trocado-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/a760d1109c.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+    <!--Link do css para a parte Select Multiple, onde esse css está para mostrar como ficaria, mas pode ser trocado-->
 </head>
+
 <body>
-<?php include_once("../../include/header.php"); ?>
+    <?php include_once("../../include/header.php"); ?>
     <h1>Selecione um Arquivo:</h1>
 
     <!--DIV que vai guardar todos os documentos criados e que mudará de acordo com os filtros selecionados pelos usuários-->
@@ -34,41 +42,38 @@
         <!--Form que será usado para pesquisar por pastas e também para filtrar os documentos pela pasta-->
         <form action="" method="POST">
             <!--Input do tipo search que será usado para o usuário pesquisar por pastas que ele queira filtrar-->
-            <input type="search" id="pesquisa" placeholder="Pesquise pelas pastas" oninput="filtrarPastas();"> <!--Atributo que acionará a função toda vez que o usuário digitar uma nova tecla-->
+            <input type="search" id="pesquisa" placeholder="Pesquise pelas pastas" oninput="filtrarPastas();">
+            <!--Atributo que acionará a função toda vez que o usuário digitar uma nova tecla-->
             <br>
             <!--Código PHP para selecionar as pastas que já existem para o usuario filtrar por pastas-->
             <?php
-                $SelectPastas = "SELECT * FROM tb_pasta";
-                $executePasta = $conexao -> query($SelectPastas);
+            $SelectPastas = "SELECT * FROM tb_pasta";
+            $executePasta = $conexao->query($SelectPastas);
 
-                if($executePasta -> num_rows > 0){
-                    while($rowPasta = $executePasta -> fetch_assoc()){
-                        ?>  
-                        <!--Div que armazena todas as pastas que serviram como filtro-->
-                        <div class="pasta-item" data-nome="<?php echo $rowPasta['pasta_nome']; ?>"> <!--Atributo data, nesse caso descrito como nome, onde o HTML armazena dados que não são exibidos na tela do usuário-->
-                            <!--label para mostrar o nome das pastas do lado do checkbox-->
-                            <label for="pasta_<?php echo $rowPasta['id_pasta']; ?>">
-                                <?php echo htmlspecialchars($rowPasta['pasta_nome']); ?>
-                            </label>
-                            <!--FIM LABEL PARA INPUTS-->
+            if ($executePasta->num_rows > 0) {
+                while ($rowPasta = $executePasta->fetch_assoc()) {
+                    ?>
+                    <!--Div que armazena todas as pastas que serviram como filtro-->
+                    <div class="pasta-item" data-nome="<?php echo $rowPasta['pasta_nome']; ?>">
+                        <!--Atributo data, nesse caso descrito como nome, onde o HTML armazena dados que não são exibidos na tela do usuário-->
+                        <!--label para mostrar o nome das pastas do lado do checkbox-->
+                        <label for="pasta_<?php echo $rowPasta['id_pasta']; ?>">
+                            <?php echo htmlspecialchars($rowPasta['pasta_nome']); ?>
+                        </label>
+                        <!--FIM LABEL PARA INPUTS-->
 
-                            <!--Input checkbox para o usuário selecionar a pasta que ele deseja filtrar os documentos,o atributo name é uma array para permitir o usuário selecionar mais de uma pasta para pesquisa -->
-                            <input 
-                                type="checkbox" 
-                                id="pasta_<?php echo $rowPasta['id_pasta']; ?>" 
-                                name="pastas[]" 
-                                value="<?php echo $rowPasta['id_pasta']; ?>"
-                                class="checkbox-pasta"
-                            > 
-                            <!--FIM INPUT CHECKBOX-->
+                        <!--Input checkbox para o usuário selecionar a pasta que ele deseja filtrar os documentos,o atributo name é uma array para permitir o usuário selecionar mais de uma pasta para pesquisa -->
+                        <input type="checkbox" id="pasta_<?php echo $rowPasta['id_pasta']; ?>" name="pastas[]"
+                            value="<?php echo $rowPasta['id_pasta']; ?>" class="checkbox-pasta">
+                        <!--FIM INPUT CHECKBOX-->
 
-                        </div>
-                        <!--Fim da DIV pasta item-->
-                        <?php
-                    }
-                }else{
-                    echo "Nenhuma pasta foi criada ainda";
+                    </div>
+                    <!--Fim da DIV pasta item-->
+                    <?php
                 }
+            } else {
+                echo "Nenhuma pasta foi criada ainda";
+            }
 
             ?>
             <!--DIV que será usada para exibir uma mensagem caso o javascript não encontre nenhuma pasta no banco de dados que possua o nome pesquisado pelo usuário-->
@@ -101,7 +106,8 @@
 
     <!--Form que vai aparecer ao clicar no botão de criar pasta, onde o usuário vai poder criar pastas e adcionar documentos nela-->
     <form action="../../functions/criar_pasta.php" id="criar_pasta_form" method="POST">
-        <button id="close_button" type="button" onclick="close_criar_pasta();"> X </button> <!--Botão com um X para fechar o forms, dessa forma chamar a função em JS que troca o display do forms-->
+        <button id="close_button" type="button" onclick="close_criar_pasta();"> X </button>
+        <!--Botão com um X para fechar o forms, dessa forma chamar a função em JS que troca o display do forms-->
         <h4>CRIAR PASTA</h4>
         <h6>Nome</h6>
         <section id="NomePasta">
@@ -110,25 +116,26 @@
             <p id="resposta_check"></p>
         </section>
         <h6>Adicionar documentos</h6>
-        <select name="select_documents[]" id="select_documents" multiple> <!--Select Multiplo, onde o usuário irá escolher quais documentos ele quer que estejam naquela determinada pasta que está prestes a criar-->
+        <select name="select_documents[]" id="select_documents" multiple>
+            <!--Select Multiplo, onde o usuário irá escolher quais documentos ele quer que estejam naquela determinada pasta que está prestes a criar-->
             <?php
-                $SelectDocumentos = "SELECT * FROM documentos_pasta";
-                $executeView = $conexao -> query($SelectDocumentos);
+            $SelectDocumentos = "SELECT * FROM documentos_pasta";
+            $executeView = $conexao->query($SelectDocumentos);
 
-                if($executeView -> num_rows > 0){
-                    while($rowView = $executeView -> fetch_assoc()){
-                        ?>
-                        <option value="<?php echo $rowView['id'] ?>">
-                            <?php echo $rowView['titulo'] ?>
-                        </option>
-                        <?php
-                    }
+            if ($executeView->num_rows > 0) {
+                while ($rowView = $executeView->fetch_assoc()) {
+                    ?>
+                    <option value="<?php echo $rowView['id'] ?>">
+                        <?php echo $rowView['titulo'] ?>
+                    </option>
+                    <?php
                 }
+            }
             ?>
-        </select>   
-        
+        </select>
+
         <!--Botão para enviar o forms-->
-        <button type="submit"> 
+        <button type="submit">
             <h6>Enviar</h6>
         </button>
     </form>
@@ -137,12 +144,15 @@
     <br>
     <a href="cadastrar_colaborador.php">Cadastrar colaborador</a>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!--Scripts para chamar a biblioteca Jquery do JS -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> <!--Scripts para charmar a biblioteca Select2 do Jquery, que permite novas funcionalides à tag <select> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--Scripts para chamar a biblioteca Jquery do JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <!--Scripts para charmar a biblioteca Select2 do Jquery, que permite novas funcionalides à tag <select> -->
     <script>
+        
         //Function para trocar o display da div opcoes, onde o usuário poderá criar pastas ou criar documentos
         function showPopUp() {
-            let div_opcoes = document.getElementById('opcoes'); 
+            let div_opcoes = document.getElementById('opcoes');
             div_opcoes.style.display = (div_opcoes.style.display === 'none' || div_opcoes.style.display === '') ? 'block' : 'none';
         }
 
@@ -153,18 +163,18 @@
         }
 
         //Function para trocar o display do forms, mais especificamente escondelo usando o botão vermelho
-        function close_criar_pasta(){
+        function close_criar_pasta() {
             let form_criar_pasta = document.getElementById('criar_pasta_form'); //Pegar o forms pelo Id e guardar em uma variável
             form_criar_pasta.style.display = 'none'; //Trocar display para none, escondendo o forms
         }
 
         //Function para trocar o display da div opcoes, onde o usuário poderá criar pastas ou criar documentos
         function showFiltros() {
-            let div_filtros = document.getElementById('filtros'); 
+            let div_filtros = document.getElementById('filtros');
             div_filtros.style.display = (div_filtros.style.display === 'none' || div_filtros.style.display === '') ? 'block' : 'none';
         }
 
-        $(document).ready(function() { //Garante que esse comando seja executado apenas depois da página estar completamente carregada
+        $(document).ready(function () { //Garante que esse comando seja executado apenas depois da página estar completamente carregada
             $('#select_documents').select2({ //Inicializa o select2 no <select> que possui id = select_documents
                 placeholder: "Selecionar documentos", //Adiciona placeholder à ele, pois teoricamente um select não tem placeholder
                 allowClear: true //Adciona o comando onde o select pode ser 'limpo', limpando as opções já selecionadas pelo usuário
@@ -172,14 +182,14 @@
         });
 
         //Função para pesquisar para ver o nome da pasta já existe enquanto a pessoa digita
-        function checarNomePasta(){
+        function checarNomePasta() {
             let nome_pasta = document.getElementById('nome_pasta').value; //Pega o valor digitado e quando em uma variável
             let xhr = new XMLHttpRequest(); //Cria um objeto XMLHttpRequest, que é usado para interajir com o servidor
 
             xhr.open('POST', '../../functions/checarNomePasta.php', true); //Detalhes da requisição
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); //Seta o tipo das informações 
             //Bloco IF/ELSE para verficar a resposta do servidor 
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) { //se tudo ocorrer corretamente ele pega a resposta do servidor e armazena em uma variável
                     const response = xhr.responseText;
                     document.getElementById('resposta_check').innerHTML = response;
@@ -209,7 +219,7 @@
             }
 
 
-            $('.pasta-item').each(function() { //Seleciona cada elemento no HTML que possui a classe = pasta-item e roda em cada uma função, por isso o each(function())
+            $('.pasta-item').each(function () { //Seleciona cada elemento no HTML que possui a classe = pasta-item e roda em cada uma função, por isso o each(function())
                 var nomePasta = $(this).data('nome').toLowerCase(); // Cria uma variável para acessar o elemento atual da interação, por isso o (this) e pega no atributo nome que foi passado lá no HTML dentro do atributo data e parassa tudo para minusculo
                 if (nomePasta.includes(termoPesquisa)) { //Basicamente pega o nome da pasta que foi salvo acima e verifica se o termoPesquisa, ou seja, o que o usuario digitou esta incluso nesse nome da pasta
                     $(this).show(); // Caso o termo estiver incluido no nome da pasta, então mostra o elemento atual da iteração, por isso o (this).show();
@@ -221,17 +231,17 @@
 
             // Caso a variável responsável por verificar se foi encontrada alguma pasta estiver definida com true, então ele esconde a div com classe = pastasEncontradas
             if (pastasEncontradas) {
-                $('.pastasEncontradas').hide(); 
+                $('.pastasEncontradas').hide();
             } else { // Caso contrário, ele mostra a DIV aparecendo a mensagem de Pasta não encontrada
                 $('.pastasEncontradas').show();
             }
         }
 
-        $(document).ready(function() { // Aciona a função quando todos os elementos do HTML estiverem carregados
+        $(document).ready(function () { // Aciona a função quando todos os elementos do HTML estiverem carregados
             // Função para realizar a requisição AJAX sempre que o usuário interagir com os filtros
             function filtrarDocumentos() {
                 var pastasSelecionadas = []; // Define uma variável que armazenará todas as pastas que foram selecionadas pelo usuário para filtro
-                $("input[name='pastas[]']:checked").each(function() { // Pega todos os elementos do HTML que são inputs, possuem o name = pastas[] e estão seleciondaos(checked) e itera sobre cada um uma função
+                $("input[name='pastas[]']:checked").each(function () { // Pega todos os elementos do HTML que são inputs, possuem o name = pastas[] e estão seleciondaos(checked) e itera sobre cada um uma função
                     pastasSelecionadas.push($(this).val()); //Obtém o valor do elemento atual na iteração, que seria o id da pasta que foi definido lá no HTML como value e adiciona na array criada anteriormente
                 });
 
@@ -243,7 +253,7 @@
                         pastas: pastasSelecionadas
                     },
                     //É definida uma função que será chamada caso a requisição for bem-sucedida
-                    success: function(response) {
+                    success: function (response) {
                         // Atualiza a lista de documentos na página sem recarregar
                         $('#documentosList').html(response);
                     }
@@ -251,7 +261,7 @@
             }
 
             // Chama um envento listener, que basicamente aciona a funçãp acima de filtrarDocumentos toda vez que os inputs de tipo cehckbox da página mudarem de estado, ou seja, serem marcados ou desmarcados
-            $("input.checkbox-pasta[type='checkbox']").on('change', function() {
+            $("input.checkbox-pasta[type='checkbox']").on('change', function () {
                 filtrarDocumentos();
             });
 
@@ -259,6 +269,7 @@
             filtrarDocumentos();
         });
     </script>
-</div> <!-- Fechamento DA DIV DO HEADER!!-->
+    </div> <!-- Fechamento DA DIV DO HEADER!!-->
 </body>
+
 </html>
