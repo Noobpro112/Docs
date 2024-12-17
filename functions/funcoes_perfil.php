@@ -22,5 +22,5 @@ function getProfilePicture() {
         }
     }
 
-    return "../../imgs/imgs/user-padrao.jpg"; // Caminho partindo da pasta admin
+    return "../../imgs/user-padrao.jpg"; // Caminho partindo da pasta admin
 }
